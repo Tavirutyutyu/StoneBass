@@ -31,4 +31,8 @@ public class ImageService {
     public ImageDTO getById(Long id) {
         return imageRepository.findById(id).map(this::createImageDTO).orElse(null);
     }
+
+    public void deleteById(Long id) {
+        imageRepository.deleteById(id);
+    }
 }
