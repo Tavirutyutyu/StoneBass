@@ -27,4 +27,8 @@ public class ImageService {
         String imageBase64 = Base64.getEncoder().encodeToString(imageEntity.getImage());
         return new ImageDTO(imageEntity.getTitle(), imageEntity.getDescription(), imageBase64);
     }
+
+    public ImageDTO getById(Long id) {
+        return imageRepository.findById(id).map(this::createImageDTO).orElse(null);
+    }
 }
