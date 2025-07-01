@@ -19,4 +19,10 @@ public class ImageEntity {
     private String description;
     @Column(columnDefinition = "BYTEA")
     private byte[] image;
+
+    public ImageEntity(String title, String description, byte[] bytes) {
+        this.title = title;
+        this.description = description;
+        this.image = bytes;
+    }
 }

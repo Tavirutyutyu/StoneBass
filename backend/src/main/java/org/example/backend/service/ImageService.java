@@ -5,7 +5,9 @@ import org.example.backend.model.ImageEntity;
 import org.example.backend.repository.ImageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Base64;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,10 +31,15 @@ public class ImageService {
     }
 
     public ImageDTO getById(Long id) {
-        return imageRepository.findById(id).map(this::createImageDTO).orElse(null);
+        return imageRepository.findById(id).map(this::createImageDTO).orElseThrow(() -> new RuntimeException("Image not found"));
     }
 
     public void deleteById(Long id) {
         imageRepository.deleteById(id);
+    }
+
+    public ImageDTO upload(String title, String description, MultipartFile file) throws IOException {
+        ImageEntity imageEntity = new ImageEntity(title, description, file.getBytes());
+        return createImageDTO(imageRepository.save(imageEntity));
     }
 }
