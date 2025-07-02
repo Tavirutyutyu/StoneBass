@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react'
 import './App.css'
-import PostComponent from "./component/PostComponent.js";
+import PostComponent from "./component/PostComponent.jsx";
 
 async function getAllPosts() {
     try {

@@ -3,13 +3,13 @@ import {useState} from "react";
 export default function UploadForm() {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
-    const [image, setImage] = useState(null);
+    const [file, setFile] = useState(null);
     async function handleSubmit(e) {
         e.preventDefault();
         const formData = new FormData();
         formData.append("title", title);
         formData.append("description", description);
-        formData.append("image", image);
+        formData.append("file", file);
 
         await fetch("/api/image/upload", {
             method: "POST",
@@ -23,7 +23,7 @@ export default function UploadForm() {
             <label id={"descriptionLabel"} htmlFor={"descriptionInput"}>Description</label>
             <input type="text" id="descriptionInput" placeholder="Description" value={description} onChange={(e) => setDescription(e.target.value)}/>
             <label id={"fileUploadLabel"} htmlFor={"fileUploadInput"}></label>
-            <input type={"file"} id={"fileUploadInput"} onChange={(e) => setImage(e.target.files[0])}/>
+            <input type={"file"} id={"fileUploadInput"} onChange={(e) => setFile(e.target.files[0])}/>
             <button type={"submit"}>Submit</button>
         </form>
     )
