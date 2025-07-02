@@ -11,7 +11,7 @@ export default function UploadForm() {
         formData.append("description", description);
         formData.append("image", image);
 
-        await fetch("/api/upload", {
+        await fetch("/api/image/upload", {
             method: "POST",
             body: formData,
         })
