@@ -20,10 +20,15 @@ public class ImageEntity {
     private String description;
     @Column(columnDefinition = "BYTEA")
     private byte[] image;
+    private boolean hasResonator;
+    @ManyToOne
+    private InstrumentType instrumentType;
 
-    public ImageEntity(String title, String description, byte[] bytes) {
+    public ImageEntity(String title, String description, byte[] bytes, boolean hasResonator, InstrumentType instrumentType) {
         this.title = title;
         this.description = description;
         this.image = bytes;
+        this.hasResonator = hasResonator;
+        this.instrumentType = instrumentType;
     }
 }
