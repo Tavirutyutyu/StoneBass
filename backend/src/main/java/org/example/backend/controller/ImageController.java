@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/image")
+@RequestMapping("/api/image")
 public class ImageController {
     private final ImageService imageService;
 
@@ -33,8 +33,10 @@ public class ImageController {
     public ImageDTO upload(
             @RequestParam("title") String title,
             @RequestParam("description") String description,
-            @RequestParam("file") MultipartFile file) throws IOException {
-        return imageService.upload(title, description, file);
+            @RequestParam("file") MultipartFile file,
+            @RequestParam("hasResonator") boolean hasResonator,
+            @RequestParam("instrumentType") String instrumentType) throws IOException {
+        return imageService.upload(title, description, file, hasResonator, instrumentType);
     }
 
     @DeleteMapping("/delete/{id}")
