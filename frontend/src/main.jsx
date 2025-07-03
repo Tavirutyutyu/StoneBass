@@ -1,7 +1,7 @@
 import {StrictMode} from 'react'
 import {createRoot} from 'react-dom/client'
 import './index.css'
-import App from './App.jsx'
+import MainPage from './page/MainPage.jsx'
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import UploadForm from "./component/UploadForm.jsx";
 import Navbar from "./component/Navbar.jsx";
@@ -12,9 +12,9 @@ const router = createBrowserRouter([
         path: '/',
         element: <Navbar/>,
         children: [
-            {path: '/', element: <App/>},
+            {path: '/', element: <MainPage/>},
             {path: '/upload', element: <UploadForm/>},
-            {path: '/instruments/:instrumentType', element: <InstrumentsListPage/>}
+            {path: '/instruments', element: <InstrumentsListPage/>}
         ]
     }
 ])

@@ -11,5 +11,5 @@ import java.util.List;
 @Repository
 public interface ImageRepository extends JpaRepository<ImageEntity, Long> {
     List<ImageEntity> findByInstrumentType(InstrumentType instrumentType);
-    List<ImageDTO> findByHasResonator(boolean hasResonator);
+    List<ImageEntity> findByHasResonator(boolean hasResonator);
 }

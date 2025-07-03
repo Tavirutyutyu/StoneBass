@@ -26,16 +26,16 @@ public class ImageService {
     }
 
     public List<ImageDTO> getAll() {
-        return imageRepository.findAll().stream().map(this::createImageDTO).collect(Collectors.toList());
+        return imageRepository.findAll().stream().map(this::convertImageDTO).collect(Collectors.toList());
     }
 
-    private ImageDTO createImageDTO(ImageEntity imageEntity) {
+    private ImageDTO convertImageDTO(ImageEntity imageEntity) {
         String imageBase64 = Base64.getEncoder().encodeToString(imageEntity.getImage());
         return new ImageDTO(imageEntity.getTitle(), imageEntity.getDescription(), imageBase64);
     }
 
     public ImageDTO getById(Long id) {
-        return imageRepository.findById(id).map(this::createImageDTO).orElseThrow(() -> new RuntimeException("Image not found"));
+        return imageRepository.findById(id).map(this::convertImageDTO).orElseThrow(() -> new RuntimeException("Image not found"));
     }
 
     public void deleteById(Long id) {
@@ -45,16 +45,16 @@ public class ImageService {
     public ImageDTO upload(String title, String description, MultipartFile file, boolean hasResonator, String instrumentType) throws IOException {
         InstrumentType type = instrumentTypeRepository.findByName(instrumentType).orElseThrow(() -> new RuntimeException("Invalid instrumentType"));
         ImageEntity imageEntity = new ImageEntity(title, description, file.getBytes(), hasResonator, type);
-        return createImageDTO(imageRepository.save(imageEntity));
+        return convertImageDTO(imageRepository.save(imageEntity));
     }
 
     public List<ImageDTO> getByType(String type) {
         InstrumentType instrumentType = instrumentTypeRepository.findByName(type.toLowerCase()).orElseThrow(() -> new RuntimeException("Unknown instrumentType"));
         List<ImageEntity> imageEntities = imageRepository.findByInstrumentType(instrumentType);
-        return imageEntities.stream().map(this::createImageDTO).collect(Collectors.toList());
+        return imageEntities.stream().map(this::convertImageDTO).toList();
     }
 
     public List<ImageDTO> getByResonator(boolean hasResonator) {
-        return imageRepository.findByHasResonator(hasResonator);
+        return imageRepository.findByHasResonator(hasResonator).stream().map(this::convertImageDTO).toList();
     }
 }

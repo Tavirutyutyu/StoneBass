@@ -1,30 +1,41 @@
 import {useEffect, useState} from "react";
 import PostComponent from "../component/PostComponent.jsx";
-import {useParams} from "react-router-dom";
+import {useSearchParams} from "react-router-dom";
 
-async function getInstruments(instrumentType) {
-    const response = await fetch(`/api/instrument/type/${instrumentType}`)
+async function fetchInstruments(filters) {
+    const query = new URLSearchParams(filters).toString();
+    const response = await fetch(`/api/instrument/filter?${query}`)
     if (response.status === 200) {
         return await response.json();
     } else {
-        console.log("Uhh Ohh... Something went wrong...");
+        console.log("Error fetching instruments");
     }
 }
 
 export default function InstrumentsListPage() {
-    const {instrumentType} = useParams();
+    const [searchParams] = useSearchParams();
 
     const [instruments, setInstruments] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        getInstruments(instrumentType).then(response => {
+        const instrumentType = searchParams.get("instrumentType");
+        const hasResonator = searchParams.get("hasResonator");
+        const filters = {};
+
+        console.log("FULL URL:", window.location.href);
+        console.log("instrumentType", instrumentType);
+        console.log("hasResonator", hasResonator);
+
+        if (instrumentType) filters.name = instrumentType;
+        if (hasResonator !== null) filters.hasResonator = hasResonator;
+        fetchInstruments(filters).then((response) => {
             if (response !== undefined) {
                 setInstruments(response);
                 setLoading(false);
             }
         });
-    }, [instrumentType]);
+    }, [searchParams]);
 
     if (loading) {
         return <p>Loading...</p>;
@@ -32,7 +43,7 @@ export default function InstrumentsListPage() {
 
     return (
         <div>
-            {instruments?.map((instrument) => (<PostComponent post={instrument} />))}
+            {instruments?.map((instrument) => (<PostComponent post={instrument}/>))}
         </div>
     )
 }

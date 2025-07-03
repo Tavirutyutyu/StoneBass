@@ -1,14 +1,7 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {useNavigate} from "react-router-dom";
+import InstrumentSelectorDropdown from "./InstrumentSelectorDropdown.jsx";
 
-async function getInstrumentTypes() {
-    const response = await fetch("/api/instrumentType/all")
-    if (response.status === 200) {
-        return await response.json()
-    } else {
-        console.log("Error fetching instrument types...")
-    }
-}
 
 async function upload(title, description, file, hasResonator, instrumentType) {
     const formData = new FormData();
@@ -28,21 +21,12 @@ async function upload(title, description, file, hasResonator, instrumentType) {
 export default function UploadForm() {
     const navigate = useNavigate()
 
-    const [instrumentTypes, setInstrumentTypes] = useState([])
 
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [file, setFile] = useState(null);
     const [hasResonator, setHasResonator] = useState(false);
     const [instrumentType, setInstrumentType] = useState("");
-
-    useEffect(() => {
-        getInstrumentTypes().then((response) => {
-            if (response !== undefined) {
-                setInstrumentTypes(response);
-            }
-        })
-    }, [])
 
 
     async function handleSubmit(e) {
@@ -54,6 +38,10 @@ export default function UploadForm() {
         } else {
             console.log("Something went wrong")
         }
+    }
+
+    function handleInstrumentType(type) {
+        setInstrumentType(type);
     }
 
     return (
@@ -72,13 +60,7 @@ export default function UploadForm() {
 
             <label htmlFor={"instrumentType"}>Instrument Type: </label>
 
-            <select id="instrumentType" value={instrumentType} required
-                    onChange={(e) => setInstrumentType(e.target.value)}>
-                <option value="" disabled>Select Instrument Type</option>
-                {instrumentTypes.map(item => (
-                    <option value={item.id} key={item.id}>{item.name}</option>
-                ))}
-            </select>
+            <InstrumentSelectorDropdown instrumentType={instrumentType} handleInstrumentType={handleInstrumentType}/>
 
             <button type={"submit"}>Submit</button>
         </form>
