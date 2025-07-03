@@ -18,7 +18,7 @@ async function upload(title, description, file, hasResonator, instrumentType) {
     formData.append("hasResonator", hasResonator);
     formData.append("instrumentType", instrumentType);
 
-    const response = await fetch("/api/image/upload", {
+    const response = await fetch("/api/instrument/upload", {
         method: "POST",
         body: formData,
     })
@@ -69,6 +69,7 @@ export default function UploadForm() {
             <label htmlFor={"hasResonatorLabel"}>Has resonator: </label>
             <input type={"checkbox"} id={"hasResonator"} checked={hasResonator}
                    onChange={(e) => setHasResonator(e.target.checked)}/>
+
             <label htmlFor={"instrumentType"}>Instrument Type: </label>
 
             <select id="instrumentType" value={instrumentType} required

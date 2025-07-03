@@ -47,4 +47,10 @@ public class ImageService {
         ImageEntity imageEntity = new ImageEntity(title, description, file.getBytes(), hasResonator, type);
         return createImageDTO(imageRepository.save(imageEntity));
     }
+
+    public List<ImageDTO> getByType(String type) {
+        InstrumentType instrumentType = instrumentTypeRepository.findByName(type).orElseThrow(() -> new RuntimeException("Unknown instrumentType"));
+        List<ImageEntity> imageEntities = imageRepository.findByInstrumentType(instrumentType);
+        return imageEntities.stream().map(this::createImageDTO).collect(Collectors.toList());
+    }
 }

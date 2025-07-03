@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/image")
+@RequestMapping("/api/instrument")
 public class ImageController {
     private final ImageService imageService;
 
@@ -27,6 +27,11 @@ public class ImageController {
     @GetMapping("/id/{id}")
     public ImageDTO getById(@PathVariable Long id) {
         return imageService.getById(id);
+    }
+
+    @GetMapping("/type/{type}")
+    public List<ImageDTO> getByType(@PathVariable String type) {
+        return imageService.getByType(type);
     }
 
     @PostMapping("/upload")
