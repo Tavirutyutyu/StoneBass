@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
 
-async function getInstrumentTypes(){
+async function getInstrumentTypes() {
     const response = await fetch("/api/instrumentType/all")
     if (response.status === 200) {
         return await response.json()
@@ -9,7 +10,24 @@ async function getInstrumentTypes(){
     }
 }
 
+async function upload(title, description, file, hasResonator, instrumentType) {
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("description", description);
+    formData.append("file", file);
+    formData.append("hasResonator", hasResonator);
+    formData.append("instrumentType", instrumentType);
+
+    const response = await fetch("/api/image/upload", {
+        method: "POST",
+        body: formData,
+    })
+    return response.status === 200
+}
+
 export default function UploadForm() {
+    const navigate = useNavigate()
+
     const [instrumentTypes, setInstrumentTypes] = useState([])
 
     const [title, setTitle] = useState("");
@@ -29,19 +47,10 @@ export default function UploadForm() {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        const formData = new FormData();
-        formData.append("title", title);
-        formData.append("description", description);
-        formData.append("file", file);
-        formData.append("hasResonator", hasResonator)
-        formData.append("instrumentType", instrumentType);
-
-        const response = await fetch("/api/image/upload", {
-            method: "POST",
-            body: formData,
-        })
-        if (response.status === 200) {
+        const response = await upload(title, description, file, hasResonator, instrumentType);
+        if (response) {
             console.log("All good")
+            navigate("/")
         } else {
             console.log("Something went wrong")
         }
@@ -58,10 +67,12 @@ export default function UploadForm() {
             <label id={"fileUploadLabel"} htmlFor={"fileUploadInput"}></label>
             <input type={"file"} id={"fileUploadInput"} onChange={(e) => setFile(e.target.files[0])}/>
             <label htmlFor={"hasResonatorLabel"}>Has resonator: </label>
-            <input type={"checkbox"} id={"hasResonator"} checked={hasResonator} onChange={() => setHasResonator(!hasResonator)}/>
+            <input type={"checkbox"} id={"hasResonator"} checked={hasResonator}
+                   onChange={(e) => setHasResonator(e.target.checked)}/>
             <label htmlFor={"instrumentType"}>Instrument Type: </label>
 
-            <select id="instrumentType" value={instrumentType} required onChange={(e) => setInstrumentType(e.target.value)}>
+            <select id="instrumentType" value={instrumentType} required
+                    onChange={(e) => setInstrumentType(e.target.value)}>
                 <option value="" disabled>Select Instrument Type</option>
                 {instrumentTypes.map(item => (
                     <option value={item.id} key={item.id}>{item.name}</option>
