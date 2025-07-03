@@ -49,7 +49,7 @@ public class ImageService {
     }
 
     public List<ImageDTO> getByType(String type) {
-        InstrumentType instrumentType = instrumentTypeRepository.findByName(type).orElseThrow(() -> new RuntimeException("Unknown instrumentType"));
+        InstrumentType instrumentType = instrumentTypeRepository.findByName(type.toLowerCase()).orElseThrow(() -> new RuntimeException("Unknown instrumentType"));
         List<ImageEntity> imageEntities = imageRepository.findByInstrumentType(instrumentType);
         return imageEntities.stream().map(this::createImageDTO).collect(Collectors.toList());
     }
