@@ -4,7 +4,7 @@ import PostComponent from "./component/PostComponent.jsx";
 
 async function getAllPosts() {
     try {
-        const response = await fetch('/api/image/all')
+        const response = await fetch('/api/instrument/all')
         const data = await response.json()
         if (response.status === 200) {
             return data
