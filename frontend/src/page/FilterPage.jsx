@@ -12,7 +12,7 @@ async function fetchInstruments(filters) {
     }
 }
 
-export default function InstrumentsListPage() {
+export default function FilterPage() {
     const [searchParams] = useSearchParams();
 
     const [instruments, setInstruments] = useState([]);

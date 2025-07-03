@@ -34,7 +34,7 @@ export default function MainPage() {
 
     return (
         <>
-            <SearchForm />
+            <SearchForm/>
             {posts?.map((post) => <PostComponent post={post}/>)}
         </>
     )

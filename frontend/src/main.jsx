@@ -5,7 +5,7 @@ import MainPage from './page/MainPage.jsx'
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import UploadForm from "./component/UploadForm.jsx";
 import Navbar from "./component/Navbar.jsx";
-import InstrumentsListPage from "./page/InstrumentsListPage.jsx";
+import FilterPage from "./page/FilterPage.jsx";
 
 const router = createBrowserRouter([
     {
@@ -14,7 +14,7 @@ const router = createBrowserRouter([
         children: [
             {path: '/', element: <MainPage/>},
             {path: '/upload', element: <UploadForm/>},
-            {path: '/instruments', element: <InstrumentsListPage/>}
+            {path: '/instruments', element: <FilterPage/>}
         ]
     }
 ])
