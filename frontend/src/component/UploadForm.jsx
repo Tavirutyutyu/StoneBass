@@ -1,14 +1,30 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
+
+async function getInstrumentTypes(){
+    const response = await fetch("/api/instrumentType/all")
+    if (response.status === 200) {
+        return await response.json()
+    } else {
+        console.log("Error fetching instrument types...")
+    }
+}
 
 export default function UploadForm() {
+    const [instrumentTypes, setInstrumentTypes] = useState([])
+
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [file, setFile] = useState(null);
     const [hasResonator, setHasResonator] = useState(false);
     const [instrumentType, setInstrumentType] = useState("");
 
-    //fetch this from backend
-    const instrumentTypes = ["Guitar", "Bass", "Ukulele"]
+    useEffect(() => {
+        getInstrumentTypes().then((response) => {
+            if (response !== undefined) {
+                setInstrumentTypes(response);
+            }
+        })
+    }, [])
 
 
     async function handleSubmit(e) {
@@ -42,12 +58,14 @@ export default function UploadForm() {
             <label id={"fileUploadLabel"} htmlFor={"fileUploadInput"}></label>
             <input type={"file"} id={"fileUploadInput"} onChange={(e) => setFile(e.target.files[0])}/>
             <label htmlFor={"hasResonatorLabel"}>Has resonator: </label>
-            <input type={"radio"} id={"hasResonator"} onChange={(e) => setHasResonator(e.target.checked)}/>
+            <input type={"checkbox"} id={"hasResonator"} checked={hasResonator} onChange={() => setHasResonator(!hasResonator)}/>
             <label htmlFor={"instrumentType"}>Instrument Type: </label>
 
-            <select id={"instrumentType"} onChange={(e) => setInstrumentType(e.target.value)}>
-                <option value={""}>Select Instrument Type</option>
-                {instrumentTypes.map(item => <option value={item}>{item}</option>)}
+            <select id="instrumentType" value={instrumentType} required onChange={(e) => setInstrumentType(e.target.value)}>
+                <option value="" disabled>Select Instrument Type</option>
+                {instrumentTypes.map(item => (
+                    <option value={item.id} key={item.id}>{item.name}</option>
+                ))}
             </select>
 
             <button type={"submit"}>Submit</button>
