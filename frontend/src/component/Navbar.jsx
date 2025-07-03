@@ -10,10 +10,10 @@ export default function Navbar() {
                 <div>
                     <ul>
                         <li>
-                            <a href="/instruments/guitar">Resonator</a>
+                            <a href="/instruments?hasResonator=true">Resonator</a>
                         </li>
                         <li>
-                            <a href="/instruments/bass">Traditional</a>
+                            <a href="/instruments?hasResonator=false">Traditional</a>
                         </li>
                         <li>History</li>
                         <li>About Me</li>

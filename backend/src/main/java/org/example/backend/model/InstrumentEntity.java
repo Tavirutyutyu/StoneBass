@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ImageEntity {
+public class InstrumentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,7 +24,7 @@ public class ImageEntity {
     @ManyToOne
     private InstrumentType instrumentType;
 
-    public ImageEntity(String title, String description, byte[] bytes, boolean hasResonator, InstrumentType instrumentType) {
+    public InstrumentEntity(String title, String description, byte[] bytes, boolean hasResonator, InstrumentType instrumentType) {
         this.title = title;
         this.description = description;
         this.image = bytes;
