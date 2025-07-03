@@ -34,6 +34,11 @@ public class ImageController {
         return imageService.getByType(type);
     }
 
+    @GetMapping("/hasResonator/{hasResonator}")
+    public List<ImageDTO> getByResonator(@PathVariable Boolean hasResonator) {
+        return imageService.getByResonator(hasResonator);
+    }
+
     @PostMapping("/upload")
     public ImageDTO upload(
             @RequestParam("title") String title,
