@@ -9,8 +9,12 @@ export default function Navbar() {
                 </div>
                 <div>
                     <ul>
-                        <li>Guitar 1</li>
-                        <li>Guitar 2</li>
+                        <li>
+                            <a href="/instruments/guitar">Resonator</a>
+                        </li>
+                        <li>
+                            <a href="/instruments/bass">Traditional</a>
+                        </li>
                         <li>History</li>
                         <li>About Me</li>
                     </ul>
