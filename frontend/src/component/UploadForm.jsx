@@ -40,8 +40,8 @@ export default function UploadForm() {
         }
     }
 
-    function handleInstrumentType(type) {
-        setInstrumentType(type);
+    function handleInstrumentType(newType) {
+        setInstrumentType(newType);
     }
 
     return (

@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react'
 import '../mainPage.css'
 import PostComponent from "../component/PostComponent.jsx";
+import SearchForm from "../component/SearchForm.jsx";
 
 async function getAllPosts() {
     try {
@@ -33,6 +34,7 @@ export default function MainPage() {
 
     return (
         <>
+            <SearchForm />
             {posts?.map((post) => <PostComponent post={post}/>)}
         </>
     )

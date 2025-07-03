@@ -27,7 +27,7 @@ export default function InstrumentsListPage() {
         console.log("instrumentType", instrumentType);
         console.log("hasResonator", hasResonator);
 
-        if (instrumentType) filters.name = instrumentType;
+        if (instrumentType) filters.instrumentType = instrumentType;
         if (hasResonator !== null) filters.hasResonator = hasResonator;
         fetchInstruments(filters).then((response) => {
             if (response !== undefined) {
