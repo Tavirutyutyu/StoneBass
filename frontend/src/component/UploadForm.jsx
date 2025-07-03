@@ -1,4 +1,5 @@
 import {useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
 
 async function getInstrumentTypes(){
     const response = await fetch("/api/instrumentType/all")
@@ -10,6 +11,8 @@ async function getInstrumentTypes(){
 }
 
 export default function UploadForm() {
+    const navigate = useNavigate()
+
     const [instrumentTypes, setInstrumentTypes] = useState([])
 
     const [title, setTitle] = useState("");
@@ -42,6 +45,7 @@ export default function UploadForm() {
         })
         if (response.status === 200) {
             console.log("All good")
+            navigate("/")
         } else {
             console.log("Something went wrong")
         }
@@ -66,7 +70,7 @@ export default function UploadForm() {
                 {instrumentTypes.map(item => (
                     <option value={item.id} key={item.id}>{item.name}</option>
                 ))}
-            </select>
+            </select>response
 
             <button type={"submit"}>Submit</button>
         </form>
