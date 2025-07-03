@@ -61,9 +61,11 @@ export default function UploadForm() {
             <input type={"checkbox"} id={"hasResonator"} checked={hasResonator} onChange={() => setHasResonator(!hasResonator)}/>
             <label htmlFor={"instrumentType"}>Instrument Type: </label>
 
-            <select id={"instrumentType"} onChange={(e) => setInstrumentType(e.target.value)}>
-                <option value={""}>Select Instrument Type</option>
-                {instrumentTypes?.map(item => <option value={item.name} key={item.name} >{item.name}</option>)}
+            <select id="instrumentType" value={instrumentType} required onChange={(e) => setInstrumentType(e.target.value)}>
+                <option value="" disabled>Select Instrument Type</option>
+                {instrumentTypes.map(item => (
+                    <option value={item.id} key={item.id}>{item.name}</option>
+                ))}
             </select>
 
             <button type={"submit"}>Submit</button>
