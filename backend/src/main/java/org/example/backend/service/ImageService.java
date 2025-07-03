@@ -53,4 +53,8 @@ public class ImageService {
         List<ImageEntity> imageEntities = imageRepository.findByInstrumentType(instrumentType);
         return imageEntities.stream().map(this::createImageDTO).collect(Collectors.toList());
     }
+
+    public List<ImageDTO> getByResonator(boolean hasResonator) {
+        return imageRepository.findByHasResonator(hasResonator);
+    }
 }
