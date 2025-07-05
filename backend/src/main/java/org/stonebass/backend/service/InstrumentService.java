@@ -1,16 +1,17 @@
-package org.example.backend.service;
+package org.stonebass.backend.service;
 
-import org.example.backend.DTO.ImageDTO;
-import org.example.backend.DTO.InstrumentTypeDTO;
-import org.example.backend.model.InstrumentEntity;
-import org.example.backend.model.InstrumentType;
-import org.example.backend.repository.InstrumentRepository;
-import org.example.backend.repository.InstrumentTypeRepository;
+import org.stonebass.backend.DTO.InstrumentDTO;
+import org.stonebass.backend.model.InstrumentEntity;
+import org.stonebass.backend.model.InstrumentImage;
+import org.stonebass.backend.model.InstrumentType;
+import org.stonebass.backend.repository.InstrumentRepository;
+import org.stonebass.backend.repository.InstrumentTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,16 +27,16 @@ public class InstrumentService {
         this.instrumentTypeRepository = instrumentTypeRepository;
     }
 
-    public List<ImageDTO> getAll() {
+    public List<InstrumentDTO> getAll() {
         return instrumentRepository.findAll().stream().map(this::convertImageDTO).collect(Collectors.toList());
     }
 
-    private ImageDTO convertImageDTO(InstrumentEntity instrumentEntity) {
-        String imageBase64 = Base64.getEncoder().encodeToString(instrumentEntity.getImage());
-        return new ImageDTO(instrumentEntity.getTitle(), instrumentEntity.getDescription(), imageBase64);
+    private InstrumentDTO convertImageDTO(InstrumentEntity instrumentEntity) {
+        List<String> imageBase64List = instrumentEntity.getImages().stream().map(image -> Base64.getEncoder().encodeToString(image.getImage())).toList();
+        return new InstrumentDTO(instrumentEntity.getId(), instrumentEntity.getTitle(), instrumentEntity.getDescription(), imageBase64List);
     }
 
-    public ImageDTO getById(Long id) {
+    public InstrumentDTO getById(Long id) {
         return instrumentRepository.findById(id).map(this::convertImageDTO).orElseThrow(() -> new RuntimeException("Image not found"));
     }
 
@@ -43,23 +44,18 @@ public class InstrumentService {
         instrumentRepository.deleteById(id);
     }
 
-    public ImageDTO upload(String title, String description, MultipartFile file, boolean hasResonator, String instrumentType) throws IOException {
+    public InstrumentDTO upload(String title, String description, List<MultipartFile> files, boolean hasResonator, String instrumentType) throws IOException {
         InstrumentType type = instrumentTypeRepository.findByName(instrumentType).orElseThrow(() -> new RuntimeException("Invalid instrumentType"));
-        InstrumentEntity instrumentEntity = new InstrumentEntity(title, description, file.getBytes(), hasResonator, type);
+        InstrumentEntity instrumentEntity = new InstrumentEntity(title, description, hasResonator, type);
+        List<InstrumentImage> images = new ArrayList<>();
+        for (MultipartFile file : files) {
+            images.add(new InstrumentImage(file.getBytes(), instrumentEntity));
+        }
+        instrumentEntity.setImages(images);
         return convertImageDTO(instrumentRepository.save(instrumentEntity));
     }
 
-    public List<ImageDTO> getByType(String type) {
-        InstrumentType instrumentType = instrumentTypeRepository.findByName(type.toLowerCase()).orElseThrow(() -> new RuntimeException("Unknown instrumentType"));
-        List<InstrumentEntity> imageEntities = instrumentRepository.findByInstrumentType(instrumentType);
-        return imageEntities.stream().map(this::convertImageDTO).toList();
-    }
-
-    public List<ImageDTO> getByResonator(boolean hasResonator) {
-        return instrumentRepository.findByHasResonator(hasResonator).stream().map(this::convertImageDTO).toList();
-    }
-
-    public List<ImageDTO> filter(String typeString, String hasResonatorString) {
+    public List<InstrumentDTO> filter(String typeString, String hasResonatorString) {
         if (typeString != null && hasResonatorString != null) {
             boolean hasResonator = Boolean.parseBoolean(hasResonatorString);
             InstrumentType type = instrumentTypeRepository.findByName(typeString).orElseThrow(() -> new RuntimeException("Invalid instrumentType"));

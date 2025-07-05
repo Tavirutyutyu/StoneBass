@@ -1,6 +1,6 @@
-package org.example.backend.repository;
+package org.stonebass.backend.repository;
 
-import org.example.backend.model.InstrumentType;
+import org.stonebass.backend.model.InstrumentType;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
