@@ -1,6 +1,7 @@
 package org.stonebass.backend.controller;
 
 import org.stonebass.backend.DTO.InstrumentDTO;
+import org.stonebass.backend.DTO.NewInstrumentDTO;
 import org.stonebass.backend.service.InstrumentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -40,14 +41,10 @@ public class InstrumentController {
 
     @PostMapping("/upload")
     public InstrumentDTO upload(
-            @RequestParam String title,
-            @RequestParam String description,
-            @RequestParam List<MultipartFile> files,
-            @RequestParam boolean hasResonator,
-            @RequestParam String instrumentType,
-            @RequestParam String youtubeLink
+            @ModelAttribute NewInstrumentDTO newInstrumentDTO,
+            @RequestParam List<MultipartFile> files
     ) throws IOException {
-        return instrumentService.upload(title, description, files, hasResonator, instrumentType, youtubeLink);
+        return instrumentService.upload(newInstrumentDTO, files);
     }
 
     @DeleteMapping("/delete/{id}")

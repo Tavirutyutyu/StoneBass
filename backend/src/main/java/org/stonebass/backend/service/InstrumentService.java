@@ -1,6 +1,7 @@
 package org.stonebass.backend.service;
 
 import org.stonebass.backend.DTO.InstrumentDTO;
+import org.stonebass.backend.DTO.NewInstrumentDTO;
 import org.stonebass.backend.model.InstrumentEntity;
 import org.stonebass.backend.model.InstrumentImage;
 import org.stonebass.backend.model.InstrumentType;
@@ -44,9 +45,9 @@ public class InstrumentService {
         instrumentRepository.deleteById(id);
     }
 
-    public InstrumentDTO upload(String title, String description, List<MultipartFile> files, boolean hasResonator, String instrumentType, String youtubeLink) throws IOException {
-        InstrumentType type = instrumentTypeRepository.findByName(instrumentType).orElseThrow(() -> new RuntimeException("Invalid instrumentType"));
-        InstrumentEntity instrumentEntity = new InstrumentEntity(title, description, hasResonator, type, youtubeLink);
+    public InstrumentDTO upload(NewInstrumentDTO newInstrumentDTO, List<MultipartFile> files) throws IOException {
+        InstrumentType type = instrumentTypeRepository.findByName(newInstrumentDTO.instrumentType()).orElseThrow(() -> new RuntimeException("Invalid instrumentType"));
+        InstrumentEntity instrumentEntity = new InstrumentEntity(newInstrumentDTO.title(), newInstrumentDTO.description(), newInstrumentDTO.hasResonator(), type, newInstrumentDTO.youtubeLink());
         List<InstrumentImage> images = new ArrayList<>();
         for (MultipartFile file : files) {
             images.add(new InstrumentImage(file.getBytes(), instrumentEntity));
