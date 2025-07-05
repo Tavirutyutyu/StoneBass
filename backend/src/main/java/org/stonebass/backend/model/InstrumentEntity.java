@@ -1,10 +1,13 @@
-package org.example.backend.model;
+package org.stonebass.backend.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -18,17 +21,17 @@ public class InstrumentEntity {
     @Column(unique = true)
     private String title;
     private String description;
-    @Column(columnDefinition = "BYTEA")
-    private byte[] image;
     private boolean hasResonator;
     @ManyToOne
     private InstrumentType instrumentType;
+    @OneToMany(mappedBy = "instrument", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<InstrumentImage> images;
 
-    public InstrumentEntity(String title, String description, byte[] bytes, boolean hasResonator, InstrumentType instrumentType) {
+    public InstrumentEntity(String title, String description, boolean hasResonator, InstrumentType instrumentType) {
         this.title = title;
         this.description = description;
-        this.image = bytes;
         this.hasResonator = hasResonator;
         this.instrumentType = instrumentType;
+        this.images = new ArrayList<>();
     }
 }

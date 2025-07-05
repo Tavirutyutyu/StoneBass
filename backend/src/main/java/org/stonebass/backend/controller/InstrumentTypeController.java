@@ -1,7 +1,7 @@
-package org.example.backend.controller;
+package org.stonebass.backend.controller;
 
-import org.example.backend.DTO.InstrumentTypeDTO;
-import org.example.backend.service.InstrumentTypeService;
+import org.stonebass.backend.DTO.InstrumentTypeDTO;
+import org.stonebass.backend.service.InstrumentTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

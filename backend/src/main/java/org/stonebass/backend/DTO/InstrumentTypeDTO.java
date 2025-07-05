@@ -1,4 +1,4 @@
-package org.example.backend.DTO;
+package org.stonebass.backend.DTO;
 
 public record InstrumentTypeDTO(String name) {
 }

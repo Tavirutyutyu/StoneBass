@@ -1,8 +1,7 @@
-package org.example.backend.repository;
+package org.stonebass.backend.repository;
 
-import org.example.backend.DTO.ImageDTO;
-import org.example.backend.model.InstrumentEntity;
-import org.example.backend.model.InstrumentType;
+import org.stonebass.backend.model.InstrumentEntity;
+import org.stonebass.backend.model.InstrumentType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

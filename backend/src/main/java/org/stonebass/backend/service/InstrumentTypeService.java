@@ -1,8 +1,8 @@
-package org.example.backend.service;
+package org.stonebass.backend.service;
 
-import org.example.backend.DTO.InstrumentTypeDTO;
-import org.example.backend.model.InstrumentType;
-import org.example.backend.repository.InstrumentTypeRepository;
+import org.stonebass.backend.DTO.InstrumentTypeDTO;
+import org.stonebass.backend.model.InstrumentType;
+import org.stonebass.backend.repository.InstrumentTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

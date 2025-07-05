@@ -3,14 +3,15 @@ import {useNavigate} from "react-router-dom";
 import InstrumentSelectorDropdown from "./InstrumentSelectorDropdown.jsx";
 
 
-async function upload(title, description, file, hasResonator, instrumentType) {
+async function upload(title, description, files, hasResonator, instrumentType) {
     const formData = new FormData();
     formData.append("title", title);
     formData.append("description", description);
-    formData.append("file", file);
     formData.append("hasResonator", hasResonator);
     formData.append("instrumentType", instrumentType);
-
+    for (const file of files) {
+        formData.append("files", file);
+    }
     const response = await fetch("/api/instrument/upload", {
         method: "POST",
         body: formData,
@@ -24,14 +25,14 @@ export default function UploadForm() {
 
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
-    const [file, setFile] = useState(null);
+    const [files, setFiles] = useState([]);
     const [hasResonator, setHasResonator] = useState(false);
     const [instrumentType, setInstrumentType] = useState("");
 
 
     async function handleSubmit(e) {
         e.preventDefault();
-        const response = await upload(title, description, file, hasResonator, instrumentType);
+        const response = await upload(title, description, files, hasResonator, instrumentType);
         if (response) {
             console.log("All good")
             navigate("/")
@@ -52,8 +53,13 @@ export default function UploadForm() {
             <label id={"descriptionLabel"} htmlFor={"descriptionInput"}>Description: </label>
             <input type="text" id="descriptionInput" placeholder="Description" value={description}
                    onChange={(e) => setDescription(e.target.value)}/>
-            <label id={"fileUploadLabel"} htmlFor={"fileUploadInput"}></label>
-            <input type={"file"} id={"fileUploadInput"} onChange={(e) => setFile(e.target.files[0])}/>
+            <label htmlFor="fileUploadInput">Upload Images: </label>
+            <input
+                type="file"
+                id="fileUploadInput"
+                multiple
+                onChange={(e) => setFiles(e.target.files)}
+            />
             <label htmlFor={"hasResonatorLabel"}>Has resonator: </label>
             <input type={"checkbox"} id={"hasResonator"} checked={hasResonator}
                    onChange={(e) => setHasResonator(e.target.checked)}/>
