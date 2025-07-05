@@ -44,9 +44,10 @@ public class InstrumentController {
             @RequestParam String description,
             @RequestParam List<MultipartFile> files,
             @RequestParam boolean hasResonator,
-            @RequestParam String instrumentType
+            @RequestParam String instrumentType,
+            @RequestParam String youtubeLink
     ) throws IOException {
-        return instrumentService.upload(title, description, files, hasResonator, instrumentType);
+        return instrumentService.upload(title, description, files, hasResonator, instrumentType, youtubeLink);
     }
 
     @DeleteMapping("/delete/{id}")

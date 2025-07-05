@@ -3,12 +3,13 @@ import {useNavigate} from "react-router-dom";
 import InstrumentSelectorDropdown from "./InstrumentSelectorDropdown.jsx";
 
 
-async function upload(title, description, files, hasResonator, instrumentType) {
+async function upload(title, description, files, hasResonator, instrumentType, youtubeLink) {
     const formData = new FormData();
     formData.append("title", title);
     formData.append("description", description);
     formData.append("hasResonator", hasResonator);
     formData.append("instrumentType", instrumentType);
+    formData.append("youtubeLink", youtubeLink);
     for (const file of files) {
         formData.append("files", file);
     }
@@ -28,11 +29,12 @@ export default function UploadForm() {
     const [files, setFiles] = useState([]);
     const [hasResonator, setHasResonator] = useState(false);
     const [instrumentType, setInstrumentType] = useState("");
+    const [youtubeLink, setYoutubeLink] = useState("");
 
 
     async function handleSubmit(e) {
         e.preventDefault();
-        const response = await upload(title, description, files, hasResonator, instrumentType);
+        const response = await upload(title, description, files, hasResonator, instrumentType, youtubeLink);
         if (response) {
             console.log("All good")
             navigate("/")
@@ -43,6 +45,15 @@ export default function UploadForm() {
 
     function handleInstrumentType(newType) {
         setInstrumentType(newType);
+    }
+
+    function getYoutubeLink(e){
+        const link = e.target.value;
+        const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:watch\?v=|embed\/|v\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+        const match = link.match(regex);
+        if (match) {
+            setYoutubeLink(match[1]);
+        }
     }
 
     return (
@@ -67,6 +78,9 @@ export default function UploadForm() {
             <label htmlFor={"instrumentType"}>Instrument Type: </label>
 
             <InstrumentSelectorDropdown instrumentType={instrumentType} handleInstrumentType={handleInstrumentType}/>
+
+            <label htmlFor={"youtubeLink"}>Youtube link: </label>
+            <input type={"text"} id={"youtubeLink"} onChange={getYoutubeLink}/>
 
             <button type={"submit"}>Submit</button>
         </form>

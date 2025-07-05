@@ -33,7 +33,7 @@ public class InstrumentService {
 
     private InstrumentDTO convertImageDTO(InstrumentEntity instrumentEntity) {
         List<String> imageBase64List = instrumentEntity.getImages().stream().map(image -> Base64.getEncoder().encodeToString(image.getImage())).toList();
-        return new InstrumentDTO(instrumentEntity.getId(), instrumentEntity.getTitle(), instrumentEntity.getDescription(), imageBase64List);
+        return new InstrumentDTO(instrumentEntity.getId(), instrumentEntity.getTitle(), instrumentEntity.getDescription(), imageBase64List, instrumentEntity.getYoutubeLink());
     }
 
     public InstrumentDTO getById(Long id) {
@@ -44,9 +44,9 @@ public class InstrumentService {
         instrumentRepository.deleteById(id);
     }
 
-    public InstrumentDTO upload(String title, String description, List<MultipartFile> files, boolean hasResonator, String instrumentType) throws IOException {
+    public InstrumentDTO upload(String title, String description, List<MultipartFile> files, boolean hasResonator, String instrumentType, String youtubeLink) throws IOException {
         InstrumentType type = instrumentTypeRepository.findByName(instrumentType).orElseThrow(() -> new RuntimeException("Invalid instrumentType"));
-        InstrumentEntity instrumentEntity = new InstrumentEntity(title, description, hasResonator, type);
+        InstrumentEntity instrumentEntity = new InstrumentEntity(title, description, hasResonator, type, youtubeLink);
         List<InstrumentImage> images = new ArrayList<>();
         for (MultipartFile file : files) {
             images.add(new InstrumentImage(file.getBytes(), instrumentEntity));
