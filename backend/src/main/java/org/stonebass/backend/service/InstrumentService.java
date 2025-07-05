@@ -33,7 +33,7 @@ public class InstrumentService {
 
     private InstrumentDTO convertImageDTO(InstrumentEntity instrumentEntity) {
         List<String> imageBase64List = instrumentEntity.getImages().stream().map(image -> Base64.getEncoder().encodeToString(image.getImage())).toList();
-        return new InstrumentDTO(instrumentEntity.getId(), instrumentEntity.getTitle(), instrumentEntity.getDescription(), imageBase64List);
+        return new InstrumentDTO(instrumentEntity.getId(), instrumentEntity.getTitle(), instrumentEntity.getDescription(), imageBase64List, instrumentEntity.getYoutubeLink());
     }
 
     public InstrumentDTO getById(Long id) {

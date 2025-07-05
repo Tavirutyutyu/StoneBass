@@ -11,6 +11,7 @@ export default function PostComponent({post, showControls = false}) {
     const [images, setImages] = useState([])
     const [currentImage, setCurrentImage] = useState(null)
     const [currentImageIndex, setCurrentImageIndex] = useState(0)
+    const [youtubeLink, setYoutubeLink] = useState("")
 
     useEffect(() => {
         setId(post.id)
@@ -18,6 +19,7 @@ export default function PostComponent({post, showControls = false}) {
         setDescription(post.description)
         setImages(post.images)
         setCurrentImage(imageSrcString + post.images[currentImageIndex])
+        setYoutubeLink(post.youtubeLink)
     }, [post, currentImageIndex, images])
 
 
@@ -48,7 +50,7 @@ export default function PostComponent({post, showControls = false}) {
                     <button onClick={previousImage}>Previous</button>
                     <button onClick={nextImage}>Next</button>
                     <p id={"postDescription"}>{description}</p>
-                    <YouTubeVideo videoId={"w0drLyhnByk"}/>
+                    <YouTubeVideo videoId={youtubeLink}/>
                 </div>
             )}
         </div>
