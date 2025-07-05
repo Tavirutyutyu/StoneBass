@@ -2,8 +2,7 @@ import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import InstrumentSelectorDropdown from "./InstrumentSelectorDropdown.jsx";
 
-
-async function upload(title, description, files, hasResonator, instrumentType, youtubeLink) {
+function prepareRequestData(title, description, files, hasResonator, instrumentType, youtubeLink) {
     const formData = new FormData();
     formData.append("title", title);
     formData.append("description", description);
@@ -13,29 +12,40 @@ async function upload(title, description, files, hasResonator, instrumentType, y
     for (const file of files) {
         formData.append("files", file);
     }
-    const response = await fetch("/api/instrument/upload", {
-        method: "POST",
-        body: formData,
-    })
-    return response.status === 200
+    return formData;
+}
+async function smartFetch(url, method, body){
+    return await fetch(url, {
+        method,
+        body
+    });
 }
 
-export default function UploadForm() {
+
+export default function UploadForm({
+                                       oldTitle,
+                                       oldDescription,
+                                       oldFiles,
+                                       oldHasResonator,
+                                       oldInstrumentType,
+                                       oldYoutubeLink,
+                                       isEditing = false
+                                   }) {
+
     const navigate = useNavigate()
-
-
-    const [title, setTitle] = useState("");
-    const [description, setDescription] = useState("");
-    const [files, setFiles] = useState([]);
-    const [hasResonator, setHasResonator] = useState(false);
-    const [instrumentType, setInstrumentType] = useState("");
-    const [youtubeLink, setYoutubeLink] = useState("");
+    const [title, setTitle] = useState(oldTitle ?? "");
+    const [description, setDescription] = useState(oldDescription ?? "");
+    const [files, setFiles] = useState(oldFiles ?? []);
+    const [hasResonator, setHasResonator] = useState(oldHasResonator ?? false);
+    const [instrumentType, setInstrumentType] = useState(oldInstrumentType ?? "");
+    const [youtubeLink, setYoutubeLink] = useState(oldYoutubeLink ?? "");
 
 
     async function handleSubmit(e) {
         e.preventDefault();
-        const response = await upload(title, description, files, hasResonator, instrumentType, youtubeLink);
-        if (response) {
+        const formData = prepareRequestData(title, description, files, hasResonator, instrumentType, youtubeLink);
+        const response = await smartFetch("/api/instrument/upload", isEditing? "PATCH" : "POST", formData);
+        if (response.status === 200) {
             console.log("All good")
             navigate("/")
         } else {
@@ -47,7 +57,7 @@ export default function UploadForm() {
         setInstrumentType(newType);
     }
 
-    function getYoutubeLink(e){
+    function getYoutubeLink(e) {
         const link = e.target.value;
         const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:watch\?v=|embed\/|v\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
         const match = link.match(regex);

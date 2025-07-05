@@ -7,6 +7,7 @@ import UploadForm from "./component/UploadForm.jsx";
 import Navbar from "./component/Navbar.jsx";
 import FilterPage from "./page/FilterPage.jsx";
 import ProductPage from "./page/ProductPage.jsx";
+import EditPage from "./page/EditPage.jsx";
 
 const router = createBrowserRouter([
     {
@@ -16,8 +17,9 @@ const router = createBrowserRouter([
             {path: '/', element: <MainPage/>},
             {path: '/upload', element: <UploadForm/>},
             {path: '/instruments', element: <FilterPage/>},
-            {path: '/instrument/:id', element: <ProductPage/>}
-
+            {path: '/instrument/:id', element: <ProductPage/>},
+            {path: '/admin', element: <MainPage isAdminPage={true}/>},
+            {path: '/edit', element: <EditPage/>},
         ]
     }
 ])
