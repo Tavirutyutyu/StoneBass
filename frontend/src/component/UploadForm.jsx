@@ -21,16 +21,6 @@ async function smartFetch(url, method, body){
     });
 }
 
-async function upload(isEditing, title, description, files, hasResonator, instrumentType, youtubeLink) {
-    const formData = prepareRequestData(title, description, files, hasResonator, instrumentType, youtubeLink);
-    if (isEditing) {
-        const response = await smartFetch("/api/instrument/upload", "PATCH",formData)
-        return response.status === 200
-    } else {
-        const response = await smartFetch("/api/instrument/upload", "POST",formData)
-        return response.status === 200
-    }
-}
 
 export default function UploadForm({
                                        oldTitle,
@@ -53,9 +43,9 @@ export default function UploadForm({
 
     async function handleSubmit(e) {
         e.preventDefault();
-
-        const response = await upload(isEditing, title, description, files, hasResonator, instrumentType, youtubeLink);
-        if (response) {
+        const formData = prepareRequestData(title, description, files, hasResonator, instrumentType, youtubeLink);
+        const response = await smartFetch("/api/instrument/upload", isEditing? "PATCH" : "POST", formData);
+        if (response.status === 200) {
             console.log("All good")
             navigate("/")
         } else {
