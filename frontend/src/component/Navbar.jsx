@@ -1,4 +1,5 @@
 import {Outlet} from "react-router-dom";
+import logo from "/src/assets/logo.svg";
 
 export default function Navbar() {
     return (
@@ -6,6 +7,7 @@ export default function Navbar() {
             <nav>
                 <div>
                     <h1>StoneBass</h1>
+                    <img src={logo} alt="StoneBass" />
                 </div>
                 <div>
                     <ul>
