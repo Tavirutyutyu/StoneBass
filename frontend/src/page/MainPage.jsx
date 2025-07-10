@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react'
-import '../mainPage.css'
+import '../style/mainPage.css'
 import PostComponent from "../component/PostComponent.jsx";
 import SearchForm from "../component/SearchForm.jsx";
 import {useNavigate} from "react-router-dom";

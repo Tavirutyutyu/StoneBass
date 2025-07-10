@@ -1,0 +1,124 @@
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1a1a1a;
+    padding: 1rem 2rem;
+    flex-wrap: wrap;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+/*
+1rem = 1 unit relative to the root element's font size. (by default the browser sets the default root size to 16 pixels)
+*/
+nav #logo {
+    list-style: none;
+    display:flex;
+    gap: 1rem;
+    padding: 0;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+nav h1 {
+    color: #FFB400;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.8rem;
+    margin: 0;
+    text-align: left;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    margin: 1rem auto 0;
+    padding: 0;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+nav li {
+    font-family: 'Open Sans', sans-serif;
+}
+
+nav a {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: #FFB400;
+    text-decoration: underline;
+}
+
+/* 📱 Responsive tweaks */
+@media (min-width: 768px) {
+    nav {
+        flex-wrap: nowrap;
+    }
+
+    nav h1 {
+        flex: 0 0 auto;
+        text-align: left;
+    }
+
+    nav ul {
+        margin: 0;
+        flex: 0 0 auto;
+        justify-content: flex-end;
+    }
+}
+
+/* === Hamburger Menu Button === */
+.menu-toggle {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.8rem;
+    cursor: pointer;
+    display: none;
+}
+
+/* Wrapper for logo + toggle */
+.navbar-logo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+/* Nav links default */
+.nav-links {
+    display: flex;
+    gap: 2rem;
+}
+
+/* Mobile menu hidden by default */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        margin-top: 1rem;
+    }
+
+    .nav-links.open {
+        display: flex;
+    }
+
+    nav ul {
+        justify-content: center;
+        align-items: center;
+    }
+
+    nav li {
+        padding: 0.5rem 0;
+    }
+}
+

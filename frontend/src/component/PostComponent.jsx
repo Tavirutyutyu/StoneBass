@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import YouTubeVideo from "./YoutubeVideo.jsx";
 
-export default function PostComponent({post, showControls = false}) {
+export default function PostComponent({post, isListItem = false}) {
     const imageSrcString = "data:image/png;base64,";
     const navigate = useNavigate();
     const [id, setId] = useState(null);
@@ -36,7 +36,7 @@ export default function PostComponent({post, showControls = false}) {
     }
 
     function handleClick(){
-        if (!showControls) {
+        if (!isListItem) {
             navigate(`/instrument/${id}`)
         }
     }
@@ -45,7 +45,7 @@ export default function PostComponent({post, showControls = false}) {
         <div id='post' key={title} onClick={handleClick}>
             <h1 id={"title"}>{title}</h1>
             <img id={"postImage"} src={currentImage} alt={"No Image Found"}></img>
-            {showControls && (
+            {isListItem && (
                 <div id='controls'>
                     <button onClick={previousImage}>Previous</button>
                     <button onClick={nextImage}>Next</button>
