@@ -47,7 +47,7 @@ export default function UploadForm({
         const response = await smartFetch("/api/instrument/upload", isEditing? "PATCH" : "POST", formData);
         if (response.status === 200) {
             console.log("All good")
-            navigate("/")
+            navigate("/admin")
         } else {
             console.log("Something went wrong")
         }

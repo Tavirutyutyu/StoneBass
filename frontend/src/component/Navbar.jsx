@@ -19,6 +19,9 @@ export default function Navbar() {
                 </div>
                 <ul className={isOpen ? "nav-links open" : "nav-links"}>
                     <li>
+                        <a href="/gallery">Gallery</a>
+                    </li>
+                    <li>
                         <a href="/instruments?hasResonator=true">Resonator</a>
                     </li>
                     <li>

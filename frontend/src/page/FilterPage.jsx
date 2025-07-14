@@ -42,8 +42,8 @@ export default function FilterPage() {
     }
 
     return (
-        <div>
-            {instruments?.map((instrument) => (<PostComponent post={instrument}/>))}
+        <div className="instrumentList">
+            {instruments?.map((instrument) => (<PostComponent post={instrument} isListItem={true}/>))}
         </div>
     )
 }

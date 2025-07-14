@@ -36,7 +36,7 @@ export default function PostComponent({post, isListItem = false}) {
     }
 
     function handleClick(){
-        if (!isListItem) {
+        if (isListItem) {
             navigate(`/instrument/${id}`)
         }
     }
@@ -45,7 +45,7 @@ export default function PostComponent({post, isListItem = false}) {
         <div id='post' key={title} onClick={handleClick}>
             <h1 id={"title"}>{title}</h1>
             <img id={"postImage"} src={currentImage} alt={"No Image Found"}></img>
-            {isListItem && (
+            {!isListItem && (
                 <div id='controls'>
                     <button onClick={previousImage}>Previous</button>
                     <button onClick={nextImage}>Next</button>

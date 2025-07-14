@@ -35,7 +35,7 @@ export default function ProductPage() {
 
     return (
         <div>
-            <PostComponent post={instrument} isListItem={true}/>
+            <PostComponent post={instrument}/>
         </div>
     )
 }
