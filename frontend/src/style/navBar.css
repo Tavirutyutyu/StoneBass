@@ -6,6 +6,9 @@ nav {
     padding: 1rem 2rem;
     flex-wrap: wrap;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    width: 100vw;         /* force nav to take full screen width */
+    max-width: 100%;      /* remove possible constraint from parents */
+    box-sizing: border-box;
 }
 /*
 1rem = 1 unit relative to the root element's font size. (by default the browser sets the default root size to 16 pixels)

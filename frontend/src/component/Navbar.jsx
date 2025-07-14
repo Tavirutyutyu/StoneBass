@@ -10,8 +10,8 @@ export default function Navbar() {
             <nav>
                 <div className="navbar-logo">
                     <Link id={"logo"} to="/">
-                        <h1>StoneBass</h1>
                         <img src={logo} alt="StoneBass"/>
+                        <h1>StoneBass</h1>
                     </Link>
                     <button className={"menu-toggle"} onClick={() => setIsOpen(!isOpen)}>
                         ☰
@@ -25,7 +25,9 @@ export default function Navbar() {
                         <a href="/instruments?hasResonator=false">Traditional</a>
                     </li>
                     <li>History</li>
-                    <li>About Me</li>
+                    <li>
+                        <a href="/aboutMe">About Me</a>
+                    </li>
                 </ul>
             </nav>
             <Outlet/>

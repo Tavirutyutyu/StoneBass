@@ -8,6 +8,7 @@ import Navbar from "./component/Navbar.jsx";
 import FilterPage from "./page/FilterPage.jsx";
 import ProductPage from "./page/ProductPage.jsx";
 import EditPage from "./page/EditPage.jsx";
+import AboutMePage from "./page/AboutMePage.jsx";
 
 const router = createBrowserRouter([
     {
@@ -20,6 +21,7 @@ const router = createBrowserRouter([
             {path: '/instrument/:id', element: <ProductPage/>},
             {path: '/admin', element: <MainPage isAdminPage={true}/>},
             {path: '/edit', element: <EditPage/>},
+            {path: '/aboutMe', element: <AboutMePage />}
         ]
     }
 ])

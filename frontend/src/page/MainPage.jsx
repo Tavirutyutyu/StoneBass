@@ -3,6 +3,7 @@ import '../style/mainPage.css'
 import PostComponent from "../component/PostComponent.jsx";
 import SearchForm from "../component/SearchForm.jsx";
 import {useNavigate} from "react-router-dom";
+import CategoryTile from "../component/CategoryTile.jsx";
 
 async function getAllPosts() {
     try {
@@ -50,8 +51,12 @@ export default function MainPage({isAdminPage = false}) {
     }
 
     return (
-        <>
+        <div className="mainPage">
             <SearchForm/>
+            <div id={"tiles"}>
+                <CategoryTile image={"src/assets/stonebass.jpg"} title={"StoneBass 1"} destination={"/instruments?hasResonator=true"}/>
+                <CategoryTile image={"src/assets/stonebass.jpg"} title={"StoneBass 2"} destination={"/instruments?hasResonator=false"}/>
+            </div>
             {posts?.map((post) => {
                 return (
                     <>
@@ -60,6 +65,6 @@ export default function MainPage({isAdminPage = false}) {
                     </>
                 )
             })}
-        </>
+        </div>
     )
 }
