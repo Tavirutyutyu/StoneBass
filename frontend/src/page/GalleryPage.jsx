@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import PostComponent from "../component/PostComponent.jsx";
 import {useNavigate} from "react-router-dom";
+import SearchForm from "../component/SearchForm.jsx";
 
 async function getAllPosts(){
     const response = await fetch("/api/instrument/all")
@@ -37,11 +38,17 @@ export default function GalleryPage({isAdminPage = false}) {
         })
     }
 
+    function onClickUpload(e) {
+        e.preventDefault()
+        navigate("/upload")
+    }
+
     if (loading) return <div>Loading...</div>;
 
     return (
         <div className="galleryPage">
-            <a href={"/upload"}>Upload</a>
+            <SearchForm/>
+            {isAdminPage && <button onClick={onClickUpload}>Upload</button>}
             {posts?.map((post, index) => (
                 <>
                     <PostComponent post={post} isListItem={true} key={index}/>
