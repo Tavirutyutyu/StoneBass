@@ -1,0 +1,61 @@
+:root {
+    --main-yellow: #FFB400;
+    --font-family: 'Open Sans', sans-serif;
+}
+
+.tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.tile:hover {
+    transform: scale(1.03);
+}
+
+.image-wrapper {
+    position: relative;
+    width: 45vw;
+    aspect-ratio: 873 / 582;
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.title {
+    position: absolute;
+    bottom: 1.5vh;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font-family);
+    font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+    line-height: 1.2;
+    color: var(--main-yellow);
+    width: 100%;
+    text-align: center;
+    padding: 0.5rem 0;
+}
+
+@media (max-width: 1000px) {
+    #tiles {
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+    }
+
+    .image-wrapper {
+        width: 95vw;
+        max-width: 600px;
+    }
+
+    .title {
+        font-size: clamp(1.2rem, 5vw, 1.8rem);
+        bottom: 1vh;
+    }
+}

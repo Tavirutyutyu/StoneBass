@@ -21,12 +21,6 @@ export default function Navbar() {
                     <li>
                         <a href="/gallery">Gallery</a>
                     </li>
-                    <li>
-                        <a href="/instruments?hasResonator=true">Resonator</a>
-                    </li>
-                    <li>
-                        <a href="/instruments?hasResonator=false">Traditional</a>
-                    </li>
                     <li>History</li>
                     <li>
                         <a href="/aboutMe">About Me</a>

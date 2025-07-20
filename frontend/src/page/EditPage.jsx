@@ -10,6 +10,7 @@ export default function EditPage() {
         hasResonator = false,
         instrumentType = "",
         youtubeLink = "",
+        isEditing = true
     } = location.state || {};
 
     return (
@@ -20,6 +21,7 @@ export default function EditPage() {
             oldFiles={files}
             oldHasResonator={hasResonator}
             oldYoutubeLink={youtubeLink}
+            isEditing={isEditing}
         />
     )
 }

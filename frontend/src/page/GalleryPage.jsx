@@ -33,7 +33,8 @@ export default function GalleryPage({isAdminPage = false}) {
                 files: post.images,
                 hasResonator: post.hasResonator,
                 instrumentType: post.instrumentType,
-                youtubeLink: post.youtubeLink
+                youtubeLink: post.youtubeLink,
+                isEditing: true
             }
         })
     }

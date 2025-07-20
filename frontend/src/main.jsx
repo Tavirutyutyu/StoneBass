@@ -1,6 +1,5 @@
 import {StrictMode} from 'react'
 import {createRoot} from 'react-dom/client'
-import './style/index.css'
 import MainPage from './page/MainPage.jsx'
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import UploadForm from "./component/UploadForm.jsx";

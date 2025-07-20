@@ -75,13 +75,19 @@ export default function UploadForm({
             <input type="text" id="descriptionInput" placeholder="Description" value={description}
                    onChange={(e) => setDescription(e.target.value)}/>
             <label htmlFor="fileUploadInput">Upload Images: </label>
+            {isEditing &&
+            <div>
+                {files.length > 0 && files.map((file, index) => (
+                    <img key={index} src={"data:image/png;base64," + file} alt={"no image"}/>
+                ))}
+            </div>}
             <input
                 type="file"
                 id="fileUploadInput"
                 multiple
                 onChange={(e) => setFiles(e.target.files)}
             />
-            <label htmlFor={"hasResonatorLabel"}>Has resonator: </label>
+            <label htmlFor={"hasResonator"}>Has resonator: </label>
             <input type={"checkbox"} id={"hasResonator"} checked={hasResonator}
                    onChange={(e) => setHasResonator(e.target.checked)}/>
 
