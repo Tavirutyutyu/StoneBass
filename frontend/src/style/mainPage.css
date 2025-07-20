@@ -1,27 +1,16 @@
-.mainPage #tiles {
+.mainPage {
+    background-color: gray;
+    min-height: 100vh;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: stretch;
-    width: 100%;
+    padding: 3rem 0;
 }
 
-.mainPage .tile {
-    flex: 1;
-    cursor: pointer;
+#tiles {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.mainPage .tile img {
+    justify-content: center;
+    gap: clamp(1rem, 5vw, 4rem);
     width: 100%;
-    object-fit: cover;
-    border: 1px solid black;
-}
-
-.mainPage .tile h1 {
-    font-size: 1.25rem;
-    text-align: center;
-    margin-top: 0.5rem;
-    color: #FFB400;
+    max-width: 1400px;
 }
