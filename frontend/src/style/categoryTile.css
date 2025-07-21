@@ -37,9 +37,9 @@
     left: 50%;
     transform: translateX(-50%);
     font-family: var(--font-family), sans-serif;
-    font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+    font-size: clamp(16px, 2vw, 25px);
     line-height: 1.2;
-    color: var(--main-yellow);
+    color: white;
     width: 100%;
     text-align: center;
     padding: 0.5rem 0;
