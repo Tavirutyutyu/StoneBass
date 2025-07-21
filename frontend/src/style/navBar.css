@@ -12,28 +12,20 @@ nav {
     height: 100px;
 }
 
-.navbar-logo {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
 #logo {
     display: flex;
     align-items: center;
+    gap: 1rem;
     text-decoration: none;
     color: var(--main-yellow);
 }
 
-#logo img {
+#logo-icon {
     height: 60px;
 }
 
-#logo h1 {
-    font-family: var(--font-family);
-    font-size: 27px;
-    color: var(--main-yellow);
-    text-transform: uppercase;
+#logo-text {
+    height: 40px;
 }
 
 .nav-links {
