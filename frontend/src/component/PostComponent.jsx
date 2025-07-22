@@ -66,6 +66,7 @@ export default function PostComponent({post, isListItem = false}) {
                                     src={imageSrcString + img}
                                     className={`thumbnail ${index === currentImageIndex ? "active" : ""}`}
                                     onClick={() => setCurrentImageIndex(index)}
+                                    alt={"images"}
                                 />
                             ))}
                         </div>

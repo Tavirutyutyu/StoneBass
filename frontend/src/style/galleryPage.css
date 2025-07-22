@@ -3,12 +3,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #f2f2f2;
     padding: 2rem 0;
 }
 .item-list {
     display: grid;
-    grid-template-columns: repeat(4, 407px);
+    grid-template-columns: repeat(5, 407px);
     gap: 2rem;
     padding: 2rem 0;
     justify-content: start;
@@ -16,6 +15,30 @@
     margin-left: auto;
     margin-right: auto;
 }
+
+.item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.edit-button {
+    align-self: center;
+    background: #FFB400;
+    border-radius: 0;
+    border: none;
+    width: 4rem;
+    height: 1.5rem;
+    cursor: pointer;
+}
+
+@media (max-width: 2163px) {
+    .item-list {
+        grid-template-columns: repeat(4, 407px);
+    }
+}
+
 @media (max-width: 1724px) {
     .item-list {
         grid-template-columns: repeat(3, 407px);

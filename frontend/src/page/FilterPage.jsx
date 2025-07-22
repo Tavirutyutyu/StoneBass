@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import PostComponent from "../component/PostComponent.jsx";
 import {useSearchParams} from "react-router-dom";
+import "/src/style/galleryPage.css"
 
 async function fetchInstruments(filters) {
     const query = new URLSearchParams(filters).toString();
@@ -42,8 +43,14 @@ export default function FilterPage() {
     }
 
     return (
-        <div className="instrumentList">
-            {instruments?.map((instrument) => (<PostComponent post={instrument} isListItem={true}/>))}
+        <div className="galleryPage">
+            <div className={"item-list"}>
+                {instruments?.map((post, index) => (
+                    <div className={"item"}>
+                        <PostComponent  post={post} isListItem={true} key={index}/>
+                    </div>
+                ))}
+            </div>
         </div>
     )
 }

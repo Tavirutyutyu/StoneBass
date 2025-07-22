@@ -2,7 +2,7 @@ import InstrumentSelectorDropdown from "./InstrumentSelectorDropdown.jsx";
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 
-export default function SearchForm() {
+export default function Filter() {
     const navigate = useNavigate();
     const [instrumentType, setInstrumentType] = useState("")
 

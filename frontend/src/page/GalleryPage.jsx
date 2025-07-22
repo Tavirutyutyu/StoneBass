@@ -1,8 +1,8 @@
 import {useEffect, useState} from "react";
 import PostComponent from "../component/PostComponent.jsx";
 import {useNavigate} from "react-router-dom";
-import SearchForm from "../component/SearchForm.jsx";
 import "/src/style/galleryPage.css"
+import Filter from "../component/Filter.jsx";
 
 
 async function getAllPosts() {
@@ -50,14 +50,14 @@ export default function GalleryPage({isAdminPage = false}) {
 
     return (
         <div className="galleryPage">
-            <SearchForm className={"search-form"}/>
+            <Filter className={"search-form"}/>
             {isAdminPage && <button onClick={onClickUpload}>Upload</button>}
             <div className={"item-list"}>
                 {posts?.map((post, index) => (
-                    <>
-                        <PostComponent className={"item"} post={post} isListItem={true} key={index}/>
-                        {isAdminPage && <button type={"button"} onClick={(e) => handleEdit(e, post)}>Edit</button>}
-                    </>
+                    <div className={"item"}>
+                        <PostComponent  post={post} isListItem={true} key={index}/>
+                        {isAdminPage && <button className={"edit-button"} type={"button"} onClick={(e) => handleEdit(e, post)}>Edit</button>}
+                    </div>
                 ))}
             </div>
         </div>
