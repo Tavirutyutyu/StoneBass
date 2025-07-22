@@ -1,6 +1,6 @@
 import {Link, Outlet} from "react-router-dom";
-import logo from "/src/assets/logo.svg";
-import fejlec_szoveg from "/src/assets/fejlec_szoveg.svg";
+import logo from "/src/assets/images/logo.svg";
+import fejlec_szoveg from "/src/assets/images/fejlec_szoveg.svg";
 import "/src/style/navBar.css";
 import {useState} from "react";
 
