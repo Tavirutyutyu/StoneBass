@@ -36,23 +36,46 @@ export default function PostComponent({post, isListItem = false}) {
         setCurrentImageIndex(nextImageIndex);
     }
 
-    function handleClick(){
+    function handleClick() {
         if (isListItem) {
             navigate(`/instrument/${id}`)
         }
     }
 
     return (
-        <div id='post' key={title} onClick={handleClick}>
+        <div id='post' className={isListItem ? "post--list" : "post--full"} key={title} onClick={handleClick}>
             {!isListItem && <h1 id={"title"}>{title}</h1>}
-            <img id={"postImage"} src={currentImage} alt={"No Image Found"}></img>
-            {!isListItem && (
-                <div id='controls'>
-                    <button onClick={previousImage}>Previous</button>
-                    <button onClick={nextImage}>Next</button>
+
+            {!isListItem ? (
+                <div className="main-content">
+                    <img id={"postImage"} src={currentImage} alt={"No Image Found"}/>
                     <p id={"postDescription"}>{description}</p>
-                    <YouTubeVideo videoId={youtubeLink}/>
                 </div>
+            ) : (
+                <img id={"postImage"} src={currentImage} alt={"No Image Found"}/>
+            )}
+
+            {!isListItem && (
+                <>
+                    <div id="image-carousel">
+                        <button onClick={previousImage} className="carousel-button">←</button>
+                        <div className="thumbnail-row">
+                            {images.map((img, index) => (
+                                <img
+                                    key={index}
+                                    src={imageSrcString + img}
+                                    className={`thumbnail ${index === currentImageIndex ? "active" : ""}`}
+                                    onClick={() => setCurrentImageIndex(index)}
+                                />
+                            ))}
+                        </div>
+                        <button onClick={nextImage} className="carousel-button">→</button>
+                    </div>
+
+                    <div id='video'>
+                        <YouTubeVideo videoId={youtubeLink}/>
+                    </div>
+                </>
             )}
         </div>
     )
