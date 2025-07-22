@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import YouTubeVideo from "./YoutubeVideo.jsx";
+import "/src/style/postComponent.css"
 
 export default function PostComponent({post, isListItem = false}) {
     const imageSrcString = "data:image/png;base64,";
@@ -43,7 +44,7 @@ export default function PostComponent({post, isListItem = false}) {
 
     return (
         <div id='post' key={title} onClick={handleClick}>
-            <h1 id={"title"}>{title}</h1>
+            {!isListItem && <h1 id={"title"}>{title}</h1>}
             <img id={"postImage"} src={currentImage} alt={"No Image Found"}></img>
             {!isListItem && (
                 <div id='controls'>

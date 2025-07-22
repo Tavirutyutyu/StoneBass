@@ -2,8 +2,10 @@ import {useEffect, useState} from "react";
 import PostComponent from "../component/PostComponent.jsx";
 import {useNavigate} from "react-router-dom";
 import SearchForm from "../component/SearchForm.jsx";
+import "/src/style/galleryPage.css"
 
-async function getAllPosts(){
+
+async function getAllPosts() {
     const response = await fetch("/api/instrument/all")
     if (response.status === 200) {
         return response.json()
@@ -24,7 +26,7 @@ export default function GalleryPage({isAdminPage = false}) {
         })
     }, []);
 
-    function handleEdit(e, post){
+    function handleEdit(e, post) {
         e.preventDefault()
         navigate("/edit", {
             state: {
@@ -48,14 +50,16 @@ export default function GalleryPage({isAdminPage = false}) {
 
     return (
         <div className="galleryPage">
-            <SearchForm/>
+            <SearchForm className={"search-form"}/>
             {isAdminPage && <button onClick={onClickUpload}>Upload</button>}
-            {posts?.map((post, index) => (
-                <>
-                    <PostComponent post={post} isListItem={true} key={index}/>
-                    {isAdminPage && <button type={"button"} onClick={(e) => handleEdit(e, post)}>Edit</button>}
-                </>
-            ))}
+            <div className={"item-list"}>
+                {posts?.map((post, index) => (
+                    <>
+                        <PostComponent className={"item"} post={post} isListItem={true} key={index}/>
+                        {isAdminPage && <button type={"button"} onClick={(e) => handleEdit(e, post)}>Edit</button>}
+                    </>
+                ))}
+            </div>
         </div>
     )
 }
