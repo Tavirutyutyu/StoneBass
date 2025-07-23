@@ -50,7 +50,7 @@ export default function GalleryPage({isAdminPage = false}) {
     return (
         <div className="galleryPage">
             <Filter className={"search-form"}/>
-            {isAdminPage && <button onClick={onClickUpload}>Upload</button>}
+            {isAdminPage && <button onClick={onClickUpload}>Upload Instrument</button>}
             <div className={"item-list"}>
                 {posts?.map((post, index) => (
                     <div className={"item"}>
