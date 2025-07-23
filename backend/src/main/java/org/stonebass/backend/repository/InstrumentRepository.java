@@ -9,7 +9,10 @@ import java.util.List;
 
 @Repository
 public interface InstrumentRepository extends JpaRepository<InstrumentEntity, Long> {
+
     List<InstrumentEntity> findByInstrumentType(InstrumentType instrumentType);
-    List<InstrumentEntity> findByHasResonator(boolean hasResonator);
-    List<InstrumentEntity> findByInstrumentTypeAndHasResonator(InstrumentType instrumentType, boolean hasResonator);
+
+    List<InstrumentEntity> findByInstrumentType_HasResonator(boolean hasResonator);
+
+    List<InstrumentEntity> findByInstrumentTypeAndInstrumentType_HasResonator(InstrumentType instrumentType, boolean hasResonator);
 }

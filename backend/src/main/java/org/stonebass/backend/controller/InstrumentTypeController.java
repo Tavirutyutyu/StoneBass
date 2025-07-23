@@ -23,4 +23,13 @@ public class InstrumentTypeController {
     public List<InstrumentTypeDTO> findAll() {
         return instrumentTypeService.findAll();
     }
+
+    @GetMapping("/resonator")
+    public List<InstrumentTypeDTO> findResonator() {
+        return instrumentTypeService.findAllByHasResonator(true);
+    }
+    @GetMapping("/traditional")
+    public List<InstrumentTypeDTO> findTraditional() {
+        return instrumentTypeService.findAllByHasResonator(false);
+    }
 }

@@ -7,7 +7,6 @@ public record InstrumentDTO(
         String title,
         String description,
         String instrumentType,
-        boolean hasResonator,
         List<String> images,
         String youtubeLink
 ) {

@@ -21,17 +21,15 @@ public class InstrumentEntity {
     @Column(unique = true)
     private String title;
     private String description;
-    private boolean hasResonator;
     private String youtubeLink;
     @ManyToOne
     private InstrumentType instrumentType;
     @OneToMany(mappedBy = "instrument", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<InstrumentImage> images;
 
-    public InstrumentEntity(String title, String description, boolean hasResonator, InstrumentType instrumentType, String youtubeLink) {
+    public InstrumentEntity(String title, String description, InstrumentType instrumentType, String youtubeLink) {
         this.title = title;
         this.description = description;
-        this.hasResonator = hasResonator;
         this.instrumentType = instrumentType;
         this.images = new ArrayList<>();
         this.youtubeLink = youtubeLink;
