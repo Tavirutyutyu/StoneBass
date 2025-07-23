@@ -1,16 +1,34 @@
 .category-tiles {
     background-color: white;
-    min-height: 100vh;
     display: flex;
+    flex-wrap: nowrap;
     justify-content: center;
-    align-items: stretch;
-    padding: 3rem 0;
+    align-items: flex-start;
+    gap: 70px;
+    padding: 3rem 2rem;
+    max-width: 1600px;
+    margin: 0 auto;
 }
 
-#tiles {
-    display: flex;
-    justify-content: center;
-    gap: clamp(1rem, 5vw, 4rem);
+.category-tiles .image-wrapper {
+    width: 357px;
+    height: 535px;
+    aspect-ratio: auto;
+}
+.category-tiles .image-wrapper .image {
     width: 100%;
-    max-width: 1400px;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+@media (max-width: 768px) {
+    .category-tiles {
+        gap: 2rem;
+    }
+
+    .category-tiles .image-wrapper {
+        width: 90vw;
+        height: auto;
+        aspect-ratio: 357 / 535;
+    }
 }

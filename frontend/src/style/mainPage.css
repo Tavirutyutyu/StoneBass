@@ -14,11 +14,22 @@
     width: 100%;
     max-width: 1400px;
 }
+
+#tiles .image-wrapper {
+    width: 45vw;
+    aspect-ratio: 873 / 582;
+}
+
 @media (max-width: 1000px) {
     #tiles {
         justify-content: flex-start;
         flex-direction: column;
         align-items: center;
         gap: 2rem;
+    }
+
+    #tiles .image-wrapper {
+        width: 95vw;
+        max-width: 600px;
     }
 }

@@ -30,12 +30,10 @@ export default function CategoryTilesPage({hasResonator}) {
 
     return (
         <div className="category-tiles">
-            <div id={"tiles"}>
-                {categories?.map((category) => (
-                    <CategoryTile image={"src/assets/images/nyito_rezonator.jpg"} title={category.name}
-                                  destination={`/instruments?instrumentType=${category.name}`}/>
-                ))}
-            </div>
+            {categories?.map((category) => (
+                <CategoryTile image={"src/assets/images/nyito_rezonator.jpg"} title={category.name}
+                              destination={`/instruments?instrumentType=${category.name}`}/>
+            ))}
         </div>
     )
 }
