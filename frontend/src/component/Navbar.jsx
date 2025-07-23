@@ -1,4 +1,4 @@
-import {Link, Outlet} from "react-router-dom";
+import {Link} from "react-router-dom";
 import logo from "/src/assets/images/logo.svg";
 import fejlec_szoveg from "/src/assets/images/fejlec_szoveg.svg";
 import "/src/style/navBar.css";
@@ -25,7 +25,6 @@ export default function Navbar() {
                     <li><a href="/aboutMe">About Me</a></li>
                 </ul>
             </nav>
-            <Outlet/>
         </>
     );
 }
