@@ -33,7 +33,6 @@ export default function GalleryPage({isAdminPage = false}) {
                 title: post.title,
                 description: post.description,
                 files: post.images,
-                hasResonator: post.hasResonator,
                 instrumentType: post.instrumentType,
                 youtubeLink: post.youtubeLink,
                 isEditing: true

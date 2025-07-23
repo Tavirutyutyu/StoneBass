@@ -7,7 +7,6 @@ export default function EditPage() {
         title = "",
         description = "",
         files = [],
-        hasResonator = false,
         instrumentType = "",
         youtubeLink = "",
         isEditing = true
@@ -19,7 +18,6 @@ export default function EditPage() {
             oldDescription={description}
             oldInstrumentType={instrumentType}
             oldFiles={files}
-            oldHasResonator={hasResonator}
             oldYoutubeLink={youtubeLink}
             isEditing={isEditing}
         />
