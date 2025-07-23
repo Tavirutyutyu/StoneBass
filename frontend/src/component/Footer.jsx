@@ -1,0 +1,15 @@
+import "/src/style/footer.css";
+import { FaInstagram, FaFacebookF, FaYoutube, FaTiktok } from "react-icons/fa";
+
+export default function Footer() {
+    return (
+        <footer className="footer">
+            <div className="social-icons">
+                <FaInstagram />
+                <FaFacebookF />
+                <FaYoutube />
+                <FaTiktok />
+            </div>
+        </footer>
+    );
+}
