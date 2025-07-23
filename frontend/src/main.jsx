@@ -6,9 +6,10 @@ import UploadForm from "./component/UploadForm.jsx";
 import Navbar from "./component/Navbar.jsx";
 import FilterPage from "./page/FilterPage.jsx";
 import ProductPage from "./page/ProductPage.jsx";
-import EditPage from "./page/EditPage.jsx";
+import UploadInstrumentPage from "./page/UploadInstrumentPage.jsx";
 import AboutMePage from "./page/AboutMePage.jsx";
 import GalleryPage from "./page/GalleryPage.jsx";
+import CategoryTilesPage from "./page/CategoryTilesPage.jsx";
 
 const router = createBrowserRouter([
     {
@@ -20,10 +21,11 @@ const router = createBrowserRouter([
             {path: '/instruments', element: <FilterPage/>},
             {path: '/instrument/:id', element: <ProductPage/>},
             {path: '/admin', element: <GalleryPage isAdminPage={true}/>},
-            {path: '/edit', element: <EditPage/>},
+            {path: '/edit', element: <UploadInstrumentPage/>},
             {path: '/aboutMe', element: <AboutMePage />},
             {path: '/gallery', element: <GalleryPage />},
-
+            {path: '/resonator', element: <CategoryTilesPage hasResonator={true} />},
+            {path: '/traditional', element: <CategoryTilesPage hasResonator={false} />},
         ]
     }
 ])

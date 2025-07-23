@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import YouTubeVideo from "./YoutubeVideo.jsx";
+import "/src/style/postComponent.css"
 
 export default function PostComponent({post, isListItem = false}) {
     const imageSrcString = "data:image/png;base64,";
@@ -35,23 +36,47 @@ export default function PostComponent({post, isListItem = false}) {
         setCurrentImageIndex(nextImageIndex);
     }
 
-    function handleClick(){
+    function handleClick() {
         if (isListItem) {
             navigate(`/instrument/${id}`)
         }
     }
 
     return (
-        <div id='post' key={title} onClick={handleClick}>
-            <h1 id={"title"}>{title}</h1>
-            <img id={"postImage"} src={currentImage} alt={"No Image Found"}></img>
-            {!isListItem && (
-                <div id='controls'>
-                    <button onClick={previousImage}>Previous</button>
-                    <button onClick={nextImage}>Next</button>
+        <div id='post' className={isListItem ? "post--list" : "post--full"} key={title} onClick={handleClick}>
+            {!isListItem && <h1 id={"title"}>{title}</h1>}
+
+            {!isListItem ? (
+                <div className="main-content">
+                    <img id={"postImage"} src={currentImage} alt={"No Image Found"}/>
                     <p id={"postDescription"}>{description}</p>
-                    <YouTubeVideo videoId={youtubeLink}/>
                 </div>
+            ) : (
+                <img id={"postImage"} src={currentImage} alt={"No Image Found"}/>
+            )}
+
+            {!isListItem && (
+                <>
+                    <div id="image-carousel">
+                        <button onClick={previousImage} className="carousel-button">←</button>
+                        <div className="thumbnail-row">
+                            {images.map((img, index) => (
+                                <img
+                                    key={index}
+                                    src={imageSrcString + img}
+                                    className={`thumbnail ${index === currentImageIndex ? "active" : ""}`}
+                                    onClick={() => setCurrentImageIndex(index)}
+                                    alt={"images"}
+                                />
+                            ))}
+                        </div>
+                        <button onClick={nextImage} className="carousel-button">→</button>
+                    </div>
+
+                    <div id='video'>
+                        <YouTubeVideo videoId={youtubeLink}/>
+                    </div>
+                </>
             )}
         </div>
     )

@@ -1,3 +1,9 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 :root {
     --main-yellow: #FFB400;
     --font-family: 'Open Sans', sans-serif;
@@ -10,41 +16,43 @@ nav {
     align-items: center;
     padding: 0 2rem;
     height: 100px;
-}
-
-.navbar-logo {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+    border-bottom: 2px solid var(--main-yellow);
 }
 
 #logo {
     display: flex;
     align-items: center;
+    gap: 1rem;
     text-decoration: none;
     color: var(--main-yellow);
 }
 
-#logo img {
+#logo-icon {
     height: 60px;
 }
 
-#logo h1 {
-    font-family: var(--font-family);
-    font-size: 27px;
-    color: var(--main-yellow);
-    text-transform: uppercase;
+#logo-text {
+    height: 40px;
+}
+.slogan {
+    font-family: var(--font-family), sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: clamp(16px, 2vw, 25px);
+    padding-left: 20px;
+    letter-spacing: 3px;
 }
 
 .nav-links {
     list-style: none;
     display: flex;
     gap: 2rem;
+    font-weight: bold;
 }
 
 .nav-links li {
-    font-family: var(--font-family);
-    font-size: 25px;
+    font-family: var(--font-family), sans-serif;
+    font-size: clamp(16px, 2vw, 25px);
     color: var(--main-yellow);
     line-height: 34px;
 }
@@ -52,6 +60,7 @@ nav {
 .nav-links a {
     text-decoration: none;
     color: var(--main-yellow);
+    white-space: nowrap;
 }
 
 .menu-toggle {
@@ -61,8 +70,12 @@ nav {
     font-size: 30px;
     color: var(--main-yellow);
 }
-
 /* Responsive layout */
+@media (max-width:1095px){
+    .slogan {
+        display: none;
+    }
+}
 @media (max-width: 768px) {
     .nav-links {
         display: none;

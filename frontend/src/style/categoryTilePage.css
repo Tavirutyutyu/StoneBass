@@ -1,0 +1,16 @@
+.category-tiles {
+    background-color: white;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    padding: 3rem 0;
+}
+
+#tiles {
+    display: flex;
+    justify-content: center;
+    gap: clamp(1rem, 5vw, 4rem);
+    width: 100%;
+    max-width: 1400px;
+}

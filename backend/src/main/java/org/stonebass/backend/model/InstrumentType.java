@@ -18,8 +18,9 @@ public class InstrumentType {
     private Long id;
     @Column(unique = true, nullable = false)
     private String name;
-
-    public InstrumentType(String name) {
+    private boolean hasResonator;
+    public InstrumentType(String name, boolean hasResonator) {
         this.name = name;
+        this.hasResonator = hasResonator;
     }
 }

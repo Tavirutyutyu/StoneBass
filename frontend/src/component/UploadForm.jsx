@@ -2,11 +2,10 @@ import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import InstrumentSelectorDropdown from "./InstrumentSelectorDropdown.jsx";
 
-function prepareRequestData(title, description, files, hasResonator, instrumentType, youtubeLink) {
+function prepareRequestData(title, description, files, instrumentType, youtubeLink) {
     const formData = new FormData();
     formData.append("title", title);
     formData.append("description", description);
-    formData.append("hasResonator", hasResonator);
     formData.append("instrumentType", instrumentType);
     formData.append("youtubeLink", youtubeLink);
     for (const file of files) {
@@ -21,12 +20,10 @@ async function smartFetch(url, method, body){
     });
 }
 
-
 export default function UploadForm({
                                        oldTitle,
                                        oldDescription,
                                        oldFiles,
-                                       oldHasResonator,
                                        oldInstrumentType,
                                        oldYoutubeLink,
                                        isEditing = false
@@ -36,14 +33,13 @@ export default function UploadForm({
     const [title, setTitle] = useState(oldTitle ?? "");
     const [description, setDescription] = useState(oldDescription ?? "");
     const [files, setFiles] = useState(oldFiles ?? []);
-    const [hasResonator, setHasResonator] = useState(oldHasResonator ?? false);
     const [instrumentType, setInstrumentType] = useState(oldInstrumentType ?? "");
     const [youtubeLink, setYoutubeLink] = useState(oldYoutubeLink ?? "");
 
 
     async function handleSubmit(e) {
         e.preventDefault();
-        const formData = prepareRequestData(title, description, files, hasResonator, instrumentType, youtubeLink);
+        const formData = prepareRequestData(title, description, files, instrumentType, youtubeLink);
         const response = await smartFetch("/api/instrument/upload", isEditing? "PATCH" : "POST", formData);
         if (response.status === 200) {
             console.log("All good")
@@ -87,10 +83,6 @@ export default function UploadForm({
                 multiple
                 onChange={(e) => setFiles(e.target.files)}
             />
-            <label htmlFor={"hasResonator"}>Has resonator: </label>
-            <input type={"checkbox"} id={"hasResonator"} checked={hasResonator}
-                   onChange={(e) => setHasResonator(e.target.checked)}/>
-
             <label htmlFor={"instrumentType"}>Instrument Type: </label>
 
             <InstrumentSelectorDropdown instrumentType={instrumentType} handleInstrumentType={handleInstrumentType}/>

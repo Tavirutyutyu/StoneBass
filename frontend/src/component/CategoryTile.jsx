@@ -9,8 +9,8 @@ export default function CategoryTile({image, title, destination}) {
     }
 
     return (
-        <div className={"tile"} onClick={handleClick}>
-            <div className="image-wrapper">
+        <div className={"tile"}>
+            <div className="image-wrapper" onClick={handleClick}>
                 <img className="image" src={image} alt="Image" />
                 <div className="title">{title}</div>
             </div>

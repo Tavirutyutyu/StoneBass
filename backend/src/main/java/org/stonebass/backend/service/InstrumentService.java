@@ -34,7 +34,7 @@ public class InstrumentService {
 
     private InstrumentDTO convertImageDTO(InstrumentEntity instrumentEntity) {
         List<String> imageBase64List = instrumentEntity.getImages().stream().map(image -> Base64.getEncoder().encodeToString(image.getImage())).toList();
-        return new InstrumentDTO(instrumentEntity.getId(), instrumentEntity.getTitle(), instrumentEntity.getDescription(), instrumentEntity.getInstrumentType().getName(), instrumentEntity.isHasResonator(),imageBase64List, instrumentEntity.getYoutubeLink());
+        return new InstrumentDTO(instrumentEntity.getId(), instrumentEntity.getTitle(), instrumentEntity.getDescription(), instrumentEntity.getInstrumentType().getName(),/* instrumentEntity.getInstrumentType().isHasResonator(), */ imageBase64List, instrumentEntity.getYoutubeLink());
     }
 
     public InstrumentDTO getById(Long id) {
@@ -46,8 +46,8 @@ public class InstrumentService {
     }
 
     public InstrumentDTO upload(NewInstrumentDTO newInstrumentDTO, List<MultipartFile> files) throws IOException {
-        InstrumentType type = instrumentTypeRepository.findByName(newInstrumentDTO.instrumentType()).orElseThrow(() -> new RuntimeException("Invalid instrumentType"));
-        InstrumentEntity instrumentEntity = new InstrumentEntity(newInstrumentDTO.title(), newInstrumentDTO.description(), newInstrumentDTO.hasResonator(), type, newInstrumentDTO.youtubeLink());
+        InstrumentType type = instrumentTypeRepository.findByName(newInstrumentDTO.instrumentType()).orElseThrow(() -> new RuntimeException("Invalid instrumentType: " + newInstrumentDTO.instrumentType()));
+        InstrumentEntity instrumentEntity = new InstrumentEntity(newInstrumentDTO.title(), newInstrumentDTO.description(), type, newInstrumentDTO.youtubeLink());
         List<InstrumentImage> images = new ArrayList<>();
         for (MultipartFile file : files) {
             images.add(new InstrumentImage(file.getBytes(), instrumentEntity));
@@ -60,13 +60,13 @@ public class InstrumentService {
         if (typeString != null && hasResonatorString != null) {
             boolean hasResonator = Boolean.parseBoolean(hasResonatorString);
             InstrumentType type = instrumentTypeRepository.findByName(typeString).orElseThrow(() -> new RuntimeException("Invalid instrumentType"));
-            return instrumentRepository.findByInstrumentTypeAndHasResonator(type, hasResonator).stream().map(this::convertImageDTO).toList();
+            return instrumentRepository.findByInstrumentTypeAndInstrumentType_HasResonator(type, hasResonator).stream().map(this::convertImageDTO).toList();
         } else if (typeString != null) {
             InstrumentType type = instrumentTypeRepository.findByName(typeString).orElseThrow(() -> new RuntimeException("Invalid instrumentType"));
             return instrumentRepository.findByInstrumentType(type).stream().map(this::convertImageDTO).toList();
         } else if (hasResonatorString != null) {
             boolean hasResonator = Boolean.parseBoolean(hasResonatorString);
-            return instrumentRepository.findByHasResonator(hasResonator).stream().map(this::convertImageDTO).toList();
+            return instrumentRepository.findByInstrumentType_HasResonator(hasResonator).stream().map(this::convertImageDTO).toList();
         } else {
             throw new RuntimeException("Invalid instrumentType and hasResonator are null. Can not filter.");
         }

@@ -25,4 +25,8 @@ public class InstrumentTypeService {
     private InstrumentTypeDTO convertToDTO(InstrumentType instrumentType) {
         return new InstrumentTypeDTO(instrumentType.getName());
     }
+
+    public List<InstrumentTypeDTO> findAllByHasResonator(boolean hasResonator) {
+        return instrumentTypeRepository.findByHasResonator(hasResonator).stream().map(this::convertToDTO).collect(Collectors.toList());
+    }
 }
