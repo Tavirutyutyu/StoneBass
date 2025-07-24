@@ -4,6 +4,9 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+### Image Hex ###
+/src/main/resources/images
+
 ### STS ###
 .apt_generated
 .classpath
