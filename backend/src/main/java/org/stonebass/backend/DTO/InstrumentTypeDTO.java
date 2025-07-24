@@ -1,4 +1,4 @@
 package org.stonebass.backend.DTO;
 
-public record InstrumentTypeDTO(String name) {
+public record InstrumentTypeDTO(String name, String base64Image) {
 }
