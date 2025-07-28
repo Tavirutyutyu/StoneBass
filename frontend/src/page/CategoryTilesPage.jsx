@@ -12,6 +12,7 @@ async function getCategories(hasResonator) {
 }
 
 export default function CategoryTilesPage({hasResonator}) {
+    const imageSrcString = "data:image/png;base64,";
     const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -20,7 +21,7 @@ export default function CategoryTilesPage({hasResonator}) {
             setCategories(response);
             setLoading(false);
         })
-    })
+    },[hasResonator])
 
     if (loading) {
         return <p>Loading...</p>;
@@ -31,7 +32,7 @@ export default function CategoryTilesPage({hasResonator}) {
     return (
         <div className="category-tiles">
             {categories?.map((category) => (
-                <CategoryTile image={"src/assets/images/nyito_rezonator.jpg"} title={category.name}
+                <CategoryTile image={imageSrcString + category.base64Image} title={category.name}
                               destination={`/instruments?instrumentType=${category.name}`}/>
             ))}
         </div>

@@ -6,6 +6,7 @@ import org.stonebass.backend.repository.InstrumentTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Base64;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,7 +24,7 @@ public class InstrumentTypeService {
     }
 
     private InstrumentTypeDTO convertToDTO(InstrumentType instrumentType) {
-        return new InstrumentTypeDTO(instrumentType.getName());
+        return new InstrumentTypeDTO(instrumentType.getName(), Base64.getEncoder().encodeToString(instrumentType.getImage()));
     }
 
     public List<InstrumentTypeDTO> findAllByHasResonator(boolean hasResonator) {

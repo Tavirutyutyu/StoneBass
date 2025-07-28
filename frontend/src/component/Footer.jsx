@@ -1,5 +1,5 @@
 import "/src/style/footer.css";
-import { FaInstagram, FaFacebookF, FaYoutube, FaTiktok } from "react-icons/fa";
+import { FaInstagram, FaFacebookF, FaYoutube } from "react-icons/fa";
 
 export default function Footer() {
     return (
@@ -8,7 +8,6 @@ export default function Footer() {
                 <FaInstagram />
                 <FaFacebookF />
                 <FaYoutube />
-                <FaTiktok />
             </div>
         </footer>
     );

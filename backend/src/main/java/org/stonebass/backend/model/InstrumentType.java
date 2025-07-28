@@ -18,9 +18,14 @@ public class InstrumentType {
     private Long id;
     @Column(unique = true, nullable = false)
     private String name;
+    @Column(nullable = false)
     private boolean hasResonator;
-    public InstrumentType(String name, boolean hasResonator) {
+    @Column(columnDefinition = "BYTEA")
+    private byte[] image;
+
+    public InstrumentType(String name, boolean hasResonator, byte[] image) {
         this.name = name;
         this.hasResonator = hasResonator;
+        this.image = image;
     }
 }

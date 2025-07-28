@@ -28,6 +28,7 @@ public class InstrumentTypeController {
     public List<InstrumentTypeDTO> findResonator() {
         return instrumentTypeService.findAllByHasResonator(true);
     }
+
     @GetMapping("/traditional")
     public List<InstrumentTypeDTO> findTraditional() {
         return instrumentTypeService.findAllByHasResonator(false);
