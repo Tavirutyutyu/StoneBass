@@ -1,3 +1,7 @@
+:root {
+    --font-family: 'Open Sans', sans-serif;
+}
+
 #post {
     background-color: white;
     overflow: hidden;
