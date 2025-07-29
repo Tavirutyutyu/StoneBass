@@ -1,4 +1,5 @@
 import {useEffect, useState} from "react";
+import "/src/style/filter.css"
 
 async function getInstrumentTypes() {
     const response = await fetch("/api/instrumentType/all");
@@ -36,13 +37,15 @@ export default function Filter({onFilterChange, selectedFilter}) {
     if (isLoading) return <div>Loading filters...</div>;
 
     return (
-        <div>
-            <h1 onClick={() => setIsOpen(prev => !prev)}>Filter</h1>
-            {selectedFilters.length > 0 && selectedFilters.map((filterItem) => <p>{filterItem}</p>)}
+        <div className={"filter-container"}>
+            <div className={"filter-dropdown"}>
+                <h1 className={"filter-title"} onClick={() => setIsOpen(prev => !prev)}>Filter</h1>
+                {selectedFilters.length > 0 && selectedFilters.map((filterItem) => <p className={"chosen-filter"}>{filterItem}</p>)}
+            </div>
             {isOpen && (
-                <ul>
+                <ul className={"filter-list"}>
                     {instrumentTypes.map((type, index) => (
-                        <li key={index} onClick={() => toggleFilter(type.name)}>
+                        <li className={"filter-list-item"} key={index} onClick={() => toggleFilter(type.name)}>
                             {type.name}
                         </li>
                     ))}
