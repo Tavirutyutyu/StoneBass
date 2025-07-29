@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import {useEffect, useState} from "react";
+import {useNavigate, useLocation} from "react-router-dom";
 import PostComponent from "../component/PostComponent.jsx";
 import Filter from "../component/Filter.jsx";
 import "/src/style/galleryPage.css";
@@ -17,7 +17,7 @@ async function fetchInstruments(filters = {}) {
     }
 }
 
-export default function GalleryPage({ isAdminPage = false }) {
+export default function GalleryPage({isAdminPage = false}) {
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -51,7 +51,7 @@ export default function GalleryPage({ isAdminPage = false }) {
         if (filters.length > 0) {
             filters.forEach(type => query.append("instrumentType", type));
         }
-        navigate({ search: query.toString() });
+        navigate({search: query.toString()});
     }
 
     function handleEdit(e, post) {
@@ -76,25 +76,27 @@ export default function GalleryPage({ isAdminPage = false }) {
     if (loading) return <div>Loading...</div>;
 
     return (
-        <div className="galleryPage">
-            <Filter onFilterChange={onFilterChange} selectedFilter={selectedFilters} />
-            {isAdminPage && <button onClick={handleUpload}>Upload Instrument</button>}
-            <div className="item-list">
-                {posts.map((post, index) => (
-                    <div className="item" key={index}>
-                        <PostComponent post={post} isListItem={true} />
-                        {isAdminPage && (
-                            <button
-                                className="edit-button"
-                                type="button"
-                                onClick={(e) => handleEdit(e, post)}
-                            >
-                                Edit
-                            </button>
-                        )}
-                    </div>
-                ))}
+        <>
+            <Filter onFilterChange={onFilterChange} selectedFilter={selectedFilters}/>
+            <div className="galleryPage">
+                {isAdminPage && <button onClick={handleUpload}>Upload Instrument</button>}
+                <div className="item-list">
+                    {posts.map((post, index) => (
+                        <div className="item" key={index}>
+                            <PostComponent post={post} isListItem={true}/>
+                            {isAdminPage && (
+                                <button
+                                    className="edit-button"
+                                    type="button"
+                                    onClick={(e) => handleEdit(e, post)}
+                                >
+                                    Edit
+                                </button>
+                            )}
+                        </div>
+                    ))}
+                </div>
             </div>
-        </div>
+        </>
     );
 }
