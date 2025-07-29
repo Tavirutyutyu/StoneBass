@@ -15,4 +15,9 @@ public interface InstrumentRepository extends JpaRepository<InstrumentEntity, Lo
     List<InstrumentEntity> findByInstrumentType_HasResonator(boolean hasResonator);
 
     List<InstrumentEntity> findByInstrumentTypeAndInstrumentType_HasResonator(InstrumentType instrumentType, boolean hasResonator);
+
+    List<InstrumentEntity> findByInstrumentTypeInAndInstrumentType_HasResonator(List<InstrumentType> types, boolean hasResonator);
+
+    List<InstrumentEntity> findByInstrumentTypeIn(List<InstrumentType> types);
+
 }

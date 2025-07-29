@@ -17,11 +17,14 @@
 }
 
 .item {
-    border: #AEA9A9 1px solid;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 0.5rem;
+}
+
+.item #postImage {
+    border: #AEA9A9 1px solid;
 }
 
 .edit-button {

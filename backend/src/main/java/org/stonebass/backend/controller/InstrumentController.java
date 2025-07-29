@@ -33,7 +33,7 @@ public class InstrumentController {
     }
 
     @GetMapping("/filter")
-    public List<InstrumentDTO> filter(@RequestParam (required = false) String instrumentType, @RequestParam (required = false) String hasResonator) {
+    public List<InstrumentDTO> filter(@RequestParam (required = false) List<String> instrumentType, @RequestParam (required = false) String hasResonator) {
         logger.info("filter instrumentType: " + instrumentType);
         logger.info("filter hasResonator: " + hasResonator);
         return instrumentService.filter(instrumentType, hasResonator);

@@ -56,19 +56,33 @@ public class InstrumentService {
         return convertImageDTO(instrumentRepository.save(instrumentEntity));
     }
 
-    public List<InstrumentDTO> filter(String typeString, String hasResonatorString) {
-        if (typeString != null && hasResonatorString != null) {
-            boolean hasResonator = Boolean.parseBoolean(hasResonatorString);
-            InstrumentType type = instrumentTypeRepository.findByName(typeString).orElseThrow(() -> new RuntimeException("Invalid instrumentType"));
-            return instrumentRepository.findByInstrumentTypeAndInstrumentType_HasResonator(type, hasResonator).stream().map(this::convertImageDTO).toList();
-        } else if (typeString != null) {
-            InstrumentType type = instrumentTypeRepository.findByName(typeString).orElseThrow(() -> new RuntimeException("Invalid instrumentType"));
-            return instrumentRepository.findByInstrumentType(type).stream().map(this::convertImageDTO).toList();
+    public List<InstrumentDTO> filter(List<String> typeStrings, String hasResonatorString) {
+        boolean hasResonatorFilter = hasResonatorString != null && Boolean.parseBoolean(hasResonatorString);
+
+        List<InstrumentType> types = new ArrayList<>();
+        if (typeStrings != null && !typeStrings.isEmpty()) {
+            for (String type : typeStrings) {
+                types.add(instrumentTypeRepository.findByName(type).orElseThrow(() -> new RuntimeException("Invalid type: " + type)));
+            }
+        }
+
+        if (!types.isEmpty() && hasResonatorString != null) {
+            return instrumentRepository.findByInstrumentTypeInAndInstrumentType_HasResonator(types, hasResonatorFilter)
+                    .stream()
+                    .map(this::convertImageDTO)
+                    .toList();
+        } else if (!types.isEmpty()) {
+            return instrumentRepository.findByInstrumentTypeIn(types)
+                    .stream()
+                    .map(this::convertImageDTO)
+                    .toList();
         } else if (hasResonatorString != null) {
-            boolean hasResonator = Boolean.parseBoolean(hasResonatorString);
-            return instrumentRepository.findByInstrumentType_HasResonator(hasResonator).stream().map(this::convertImageDTO).toList();
+            return instrumentRepository.findByInstrumentType_HasResonator(hasResonatorFilter)
+                    .stream()
+                    .map(this::convertImageDTO)
+                    .toList();
         } else {
-            throw new RuntimeException("Invalid instrumentType and hasResonator are null. Can not filter.");
+            return getAll();
         }
     }
 }
