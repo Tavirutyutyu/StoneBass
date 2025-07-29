@@ -33,7 +33,7 @@ export default function CategoryTilesPage({hasResonator}) {
         <div className="category-tiles">
             {categories?.map((category) => (
                 <CategoryTile image={imageSrcString + category.base64Image} title={category.name}
-                              destination={`/instruments?instrumentType=${category.name}`}/>
+                              destination={`/gallery?instrumentType=${category.name}`}/>
             ))}
         </div>
     )

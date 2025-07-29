@@ -9,11 +9,11 @@ async function getInstrumentTypes() {
     }
 }
 
-export default function Filter({onFilterChange}) {
+export default function Filter({onFilterChange, selectedFilter}) {
     const [isOpen, setIsOpen] = useState(false);
     const [instrumentTypes, setInstrumentTypes] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [selectedFilters, setSelectedFilters] = useState([]);
+    const [selectedFilters, setSelectedFilters] = useState(selectedFilter ?? []);
 
     useEffect(() => {
         getInstrumentTypes().then((response) => {
