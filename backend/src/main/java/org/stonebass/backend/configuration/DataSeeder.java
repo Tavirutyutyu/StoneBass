@@ -42,13 +42,13 @@ public class DataSeeder {
 
     private void seedInstrumentTypes(InstrumentTypeRepository instrumentTypeRepository) throws Exception {
         if (instrumentTypeRepository.count() == 0) {
+            instrumentTypeRepository.save(makeInstrumentType("Bass", false, "bass_guitar.hex"));
+            instrumentTypeRepository.save(makeInstrumentType("Guitar", false, "guitar.hex"));
+            instrumentTypeRepository.save(makeInstrumentType("Other", false, "other.hex"));
             instrumentTypeRepository.save(makeInstrumentType("Upright Bass", true, "upright.hex"));
             instrumentTypeRepository.save(makeInstrumentType("Cello", true, "cello.hex"));
             instrumentTypeRepository.save(makeInstrumentType("Viola", true, "viola.hex"));
             instrumentTypeRepository.save(makeInstrumentType("Violin", true, "violin.hex"));
-            instrumentTypeRepository.save(makeInstrumentType("Guitar", false, "guitar.hex"));
-            instrumentTypeRepository.save(makeInstrumentType("Bass", false, "bass_guitar.hex"));
-            instrumentTypeRepository.save(makeInstrumentType("Other", false, "other.hex"));
         }
     }
 
