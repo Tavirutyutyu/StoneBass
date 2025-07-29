@@ -10,17 +10,39 @@ async function getInstrumentTypes() {
     }
 }
 
+async function getResonatorInstruments() {
+    const response = await fetch("/api/instrumentType/resonator");
+    if (response.status === 200) {
+        return await response.json();
+    } else {
+        console.log("Error fetching instrument types...");
+    }
+}
+async function getTraditionalInstruments() {
+    const response = await fetch("/api/instrumentType/traditional");
+    if (response.status === 200) {
+        return await response.json();
+    } else {
+        console.log("Error fetching instrument types...");
+    }
+}
+
 export default function Filter({onFilterChange, selectedFilter}) {
     const [isOpen, setIsOpen] = useState(false);
     const [instrumentTypes, setInstrumentTypes] = useState([]);
+    const [resonatorTypes, setResonatorTypes] = useState([]);
+    const [traditionalTypes, setTraditionalTypes] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [selectedFilters, setSelectedFilters] = useState(selectedFilter ?? []);
 
     useEffect(() => {
-        getInstrumentTypes().then((response) => {
-            setInstrumentTypes(response);
+        getResonatorInstruments().then((response) => {
+            setResonatorTypes(response);
+        })
+        getTraditionalInstruments().then((response) => {
+            setTraditionalTypes(response);
             setIsLoading(false);
-        });
+        })
     }, []);
 
     function toggleFilter(filterItem) {
@@ -44,11 +66,20 @@ export default function Filter({onFilterChange, selectedFilter}) {
             </div>
             {isOpen && (
                 <ul className={"filter-list"}>
-                    {instrumentTypes.map((type, index) => (
-                        <li className={"filter-list-item"} key={index} onClick={() => toggleFilter(type.name)}>
-                            {type.name}
-                        </li>
-                    ))}
+                    <div>
+                        <label>Traditional</label>
+                        {traditionalTypes?.map((item, index) => (
+                            <li className={"filter-list-item"} key={index} onClick={() => toggleFilter(item.name)}>
+                                {item.name}
+                            </li>
+                        ))}
+                        <label>Resonator</label>
+                        {resonatorTypes?.map((item, index) => (
+                            <li className={"filter-list-item"} key={index} onClick={() => toggleFilter(item.name)}>
+                                {item.name}
+                            </li>
+                        ))}
+                    </div>
                 </ul>
             )}
         </div>
