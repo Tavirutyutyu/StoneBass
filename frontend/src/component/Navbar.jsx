@@ -21,7 +21,6 @@ export default function Navbar() {
 
                 <ul className={isOpen ? "nav-links open" : "nav-links"}>
                     <li><a href="/gallery">Gallery</a></li>
-                    <li>History</li>
                     <li><a href="/aboutMe">About Me</a></li>
                 </ul>
             </nav>
