@@ -1,0 +1,60 @@
+.aboutMePage {
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    padding: 2rem;
+    font-family: 'Open Sans', sans-serif;
+    color: black;
+}
+
+.aboutMe {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    width: 50%;
+    padding-right: 2rem;
+    border-right: 4px solid #FFB400;
+}
+
+.aboutMe img {
+    width: 329px;
+    height: 649px;
+    margin-right: 1rem;
+    object-fit: cover;
+}
+
+.aboutMe p {
+    text-align: justify;
+}
+
+.separator {
+    width: 4px;
+    background-color: #FFB400;
+    height: 100%;
+    margin: 0 2rem;
+}
+
+.imagesAboutMe {
+    display: grid;
+    grid-template-columns: repeat(2, 391px);
+    grid-template-rows: repeat(2, 275px);
+    gap: 64px 37px;
+    margin-left: 32.5px;
+}
+
+.imagesAboutMe div {
+    display: flex;
+    flex-direction: column;
+}
+
+.imagesAboutMe p {
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.imagesAboutMe img {
+    width: 391px;
+    height: 275px;
+    object-fit: cover;
+}

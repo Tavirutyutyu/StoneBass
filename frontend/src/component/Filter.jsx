@@ -9,6 +9,7 @@ async function getResonatorInstruments() {
         console.log("Error fetching instrument types...");
     }
 }
+
 async function getTraditionalInstruments() {
     const response = await fetch("/api/instrumentType/traditional");
     if (response.status === 200) {
@@ -52,7 +53,11 @@ export default function Filter({onFilterChange, selectedFilter}) {
         <div className={"filter-container"}>
             <div className={"filter-dropdown"}>
                 <h1 className={"filter-title"} onClick={() => setIsOpen(prev => !prev)}>Filter</h1>
-                {selectedFilters.length > 0 && selectedFilters.map((filterItem) => <p className={"chosen-filter"} onClick={() => toggleFilter(filterItem)}>{filterItem}</p>)}
+                {selectedFilters.length > 0 && selectedFilters.map((filterItem) => (
+                    <p className={"chosen-filter"} onClick={() => toggleFilter(filterItem)}>
+                        {filterItem} X
+                    </p>
+                ))}
             </div>
             {isOpen && (
                 <ul className={"filter-list"}>
