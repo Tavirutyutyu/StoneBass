@@ -43,8 +43,11 @@
 }
 
 .imagesAboutMe div {
+    width: 391px;
+    height: 275px;
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
 }
 
 .imagesAboutMe p {
@@ -57,4 +60,7 @@
     width: 391px;
     height: 275px;
     object-fit: cover;
+    display: block;
+    flex-shrink: 0;
 }
+
