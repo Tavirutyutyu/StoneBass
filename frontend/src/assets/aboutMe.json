@@ -1,4 +1,12 @@
 {
-  "description": "This is a description.",
-  "profilePicture": "src/assets/images/dick_von_assman.jpg"
+  "description": "dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+  "profilePicture": "src/assets/images/arpad.jpg",
+  "playingOn1": "src/assets/images/kistehen.jpg",
+  "playingOn1Description": "Kistehén 2016",
+  "playingOn2": "src/assets/images/holddalanap.jpg",
+  "playingOn2Description": "Holddalanap 2016",
+  "playingOn3": "src/assets/images/yengibarian.jpg",
+  "playingOn3Description": "Yengibarian Trió 2024",
+  "playingOn4": "src/assets/images/peca.jpg",
+  "playingOn4Description": "Peca 2023"
 }

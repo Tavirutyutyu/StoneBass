@@ -1,7 +1,17 @@
 import {useEffect, useState} from "react";
+import "/src/style/filter.css"
 
-async function getInstrumentTypes() {
-    const response = await fetch("/api/instrumentType/all");
+async function getResonatorInstruments() {
+    const response = await fetch("/api/instrumentType/resonator");
+    if (response.status === 200) {
+        return await response.json();
+    } else {
+        console.log("Error fetching instrument types...");
+    }
+}
+
+async function getTraditionalInstruments() {
+    const response = await fetch("/api/instrumentType/traditional");
     if (response.status === 200) {
         return await response.json();
     } else {
@@ -11,15 +21,19 @@ async function getInstrumentTypes() {
 
 export default function Filter({onFilterChange, selectedFilter}) {
     const [isOpen, setIsOpen] = useState(false);
-    const [instrumentTypes, setInstrumentTypes] = useState([]);
+    const [resonatorTypes, setResonatorTypes] = useState([]);
+    const [traditionalTypes, setTraditionalTypes] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [selectedFilters, setSelectedFilters] = useState(selectedFilter ?? []);
 
     useEffect(() => {
-        getInstrumentTypes().then((response) => {
-            setInstrumentTypes(response);
+        getResonatorInstruments().then((response) => {
+            setResonatorTypes(response);
+        })
+        getTraditionalInstruments().then((response) => {
+            setTraditionalTypes(response);
             setIsLoading(false);
-        });
+        })
     }, []);
 
     function toggleFilter(filterItem) {
@@ -36,16 +50,31 @@ export default function Filter({onFilterChange, selectedFilter}) {
     if (isLoading) return <div>Loading filters...</div>;
 
     return (
-        <div>
-            <h1 onClick={() => setIsOpen(prev => !prev)}>Filter</h1>
-            {selectedFilters.length > 0 && selectedFilters.map((filterItem) => <p>{filterItem}</p>)}
+        <div className={"filter-container"}>
+            <div className={"filter-dropdown"}>
+                <h1 className={"filter-title"} onClick={() => setIsOpen(prev => !prev)}>Filter</h1>
+                {selectedFilters.length > 0 && selectedFilters.map((filterItem) => (
+                    <p className={"chosen-filter"} onClick={() => toggleFilter(filterItem)}>
+                        {filterItem} X
+                    </p>
+                ))}
+            </div>
             {isOpen && (
-                <ul>
-                    {instrumentTypes.map((type, index) => (
-                        <li key={index} onClick={() => toggleFilter(type.name)}>
-                            {type.name}
-                        </li>
-                    ))}
+                <ul className={"filter-list"}>
+                    <div>
+                        <label className="filter-category">Traditional</label>
+                        {traditionalTypes?.map((item, index) => (
+                            <li className={"filter-list-item"} key={index} onClick={() => toggleFilter(item.name)}>
+                                {item.name}
+                            </li>
+                        ))}
+                        <label className="filter-category">Resonator</label>
+                        {resonatorTypes?.map((item, index) => (
+                            <li className={"filter-list-item"} key={index} onClick={() => toggleFilter(item.name)}>
+                                {item.name}
+                            </li>
+                        ))}
+                    </div>
                 </ul>
             )}
         </div>
