@@ -48,7 +48,7 @@ public class InstrumentController {
         return instrumentService.upload(newInstrumentDTO, files);
     }
 
-    @PatchMapping("/upload")
+    @PatchMapping("/edit")
     public InstrumentDTO edit(
             @ModelAttribute UpdateInstrumentDTO updateInstrumentDTO,
             @RequestParam(required = false) List<MultipartFile> files
