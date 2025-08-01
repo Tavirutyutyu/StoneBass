@@ -2,6 +2,7 @@ package org.stonebass.backend.service;
 
 import org.stonebass.backend.DTO.InstrumentDTO;
 import org.stonebass.backend.DTO.NewInstrumentDTO;
+import org.stonebass.backend.DTO.UpdateInstrumentDTO;
 import org.stonebass.backend.model.InstrumentEntity;
 import org.stonebass.backend.model.InstrumentImage;
 import org.stonebass.backend.model.InstrumentType;
@@ -84,5 +85,21 @@ public class InstrumentService {
         } else {
             return getAll();
         }
+    }
+
+    public InstrumentDTO edit(UpdateInstrumentDTO updateInstrumentDTO, List<MultipartFile> files) throws IOException {
+        InstrumentEntity instrument = instrumentRepository.findByTitle(updateInstrumentDTO.oldTitle()).orElseThrow(() -> new RuntimeException("Instrument " + updateInstrumentDTO.oldTitle() + " not found"));
+        InstrumentType type = instrumentTypeRepository.findByName(updateInstrumentDTO.instrumentType()).orElseThrow(() -> new RuntimeException("Invalid instrumentType: " + updateInstrumentDTO.instrumentType()));
+        instrument.setTitle(updateInstrumentDTO.newTitle());
+        instrument.setDescription(updateInstrumentDTO.description());
+        instrument.setYoutubeLink(updateInstrumentDTO.youtubeLink());
+        instrument.setInstrumentType(type);
+        List<InstrumentImage> images = new ArrayList<>();
+        for (MultipartFile file : files) {
+            images.add(new InstrumentImage(file.getBytes(), instrument));
+        }
+        instrument.getImages().clear();
+        instrument.setImages(images);
+        return convertImageDTO(instrumentRepository.save(instrument));
     }
 }
