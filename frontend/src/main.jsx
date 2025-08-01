@@ -4,7 +4,7 @@ import MainPage from './page/MainPage.jsx'
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import UploadForm from "./component/UploadForm.jsx";
 import ProductPage from "./page/ProductPage.jsx";
-import UploadInstrumentPage from "./page/UploadInstrumentPage.jsx";
+import UploadPage from "./page/UploadPage.jsx";
 import AboutMePage from "./page/AboutMePage.jsx";
 import GalleryPage from "./page/GalleryPage.jsx";
 import CategoryTilesPage from "./page/CategoryTilesPage.jsx";
@@ -19,7 +19,7 @@ const router = createBrowserRouter([
             {path: '/upload', element: <UploadForm/>},
             {path: '/instrument/:id', element: <ProductPage/>},
             {path: '/admin', element: <GalleryPage isAdminPage={true}/>},
-            {path: '/edit', element: <UploadInstrumentPage/>},
+            {path: '/edit', element: <UploadPage/>},
             {path: '/aboutMe', element: <AboutMePage />},
             {path: '/gallery', element: <GalleryPage />},
             {path: '/resonator', element: <CategoryTilesPage hasResonator={true} />},
