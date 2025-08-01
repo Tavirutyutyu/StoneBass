@@ -1,7 +1,7 @@
 import UploadForm from "../component/UploadForm.jsx";
 import {useLocation} from "react-router-dom";
 
-export default function UploadInstrumentPage() {
+export default function UploadPage() {
     const location = useLocation();
     const {
         title = "",
