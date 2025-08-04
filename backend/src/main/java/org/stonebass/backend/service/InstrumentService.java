@@ -89,12 +89,11 @@ public class InstrumentService {
         instrument.setDescription(updateInstrumentDTO.description());
         instrument.setYoutubeLink(updateInstrumentDTO.youtubeLink());
         instrument.setInstrumentType(type);
-        List<InstrumentImage> images = new ArrayList<>();
+        List<InstrumentImage> originalImages = instrument.getImages();
+        originalImages.clear();
         for (MultipartFile file : files) {
-            images.add(new InstrumentImage(file.getBytes(), instrument));
+            originalImages.add(new InstrumentImage(file.getBytes(), instrument));
         }
-        instrument.getImages().clear();
-        instrument.setImages(images);
         return convertImageDTO(instrumentRepository.save(instrument));
     }
 }

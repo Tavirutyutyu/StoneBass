@@ -35,8 +35,6 @@ public class InstrumentController {
 
     @GetMapping("/filter")
     public List<InstrumentDTO> filter(@RequestParam (required = false) List<String> instrumentType, @RequestParam (required = false) String hasResonator) {
-        logger.info("filter instrumentType: " + instrumentType);
-        logger.info("filter hasResonator: " + hasResonator);
         return instrumentService.filter(instrumentType, hasResonator);
     }
 
@@ -51,7 +49,7 @@ public class InstrumentController {
     @PatchMapping("/edit")
     public InstrumentDTO edit(
             @ModelAttribute UpdateInstrumentDTO updateInstrumentDTO,
-            @RequestParam(required = false) List<MultipartFile> files
+            @RequestParam List<MultipartFile> files
     ) throws IOException {
         return instrumentService.edit(updateInstrumentDTO, files);
     }
