@@ -4,9 +4,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.stonebass.backend.model.AdminEntity;
 import org.stonebass.backend.model.InstrumentEntity;
 import org.stonebass.backend.model.InstrumentImage;
 import org.stonebass.backend.model.InstrumentType;
+import org.stonebass.backend.repository.AuthRepository;
 import org.stonebass.backend.repository.InstrumentImageRepository;
 import org.stonebass.backend.repository.InstrumentRepository;
 import org.stonebass.backend.repository.InstrumentTypeRepository;
@@ -24,9 +27,16 @@ public class DataSeeder {
 
 
     @Bean
-    public ApplicationRunner seedData(InstrumentTypeRepository instrumentTypeRepository, InstrumentRepository instrumentRepository, InstrumentImageRepository instrumentImageRepository) {
+    public ApplicationRunner seedData(
+            InstrumentTypeRepository instrumentTypeRepository,
+            InstrumentRepository instrumentRepository,
+            InstrumentImageRepository instrumentImageRepository,
+            AuthRepository authenticationRepository,
+            PasswordEncoder passwordEncoder
+    ) {
         return args -> {
             seedInstrumentTypes(instrumentTypeRepository);
+            seedAdminUser(authenticationRepository, passwordEncoder);
             if (springProfile.equals("dev")) {
                 seedInstruments(instrumentRepository, instrumentTypeRepository, instrumentImageRepository);
             }
@@ -37,6 +47,15 @@ public class DataSeeder {
         if (instrumentRepository.count() == 0) {
             InstrumentEntity entity = instrumentRepository.save(new InstrumentEntity("Guitar", "This is an exampleInstrument", instrumentTypeRepository.findByName("Guitar").orElseThrow(() -> new RuntimeException("Guitar instrument type not found")), "w0drLyhnByk"));
             instrumentImageRepository.save(new InstrumentImage(loadHexImage("images/guitar.hex"), entity));
+        }
+    }
+
+    private void seedAdminUser(AuthRepository authenticationRepository, PasswordEncoder passwordEncoder) {
+        if (authenticationRepository.count() == 0) {
+            String adminUser = "admin";
+            String adminPasswordRaw = "password";
+            String adminPassword = passwordEncoder.encode(adminPasswordRaw);
+            authenticationRepository.save(new AdminEntity(adminUser, adminPassword));
         }
     }
 
