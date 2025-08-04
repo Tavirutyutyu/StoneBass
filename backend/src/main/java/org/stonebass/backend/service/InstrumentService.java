@@ -2,6 +2,7 @@ package org.stonebass.backend.service;
 
 import org.stonebass.backend.DTO.InstrumentDTO;
 import org.stonebass.backend.DTO.NewInstrumentDTO;
+import org.stonebass.backend.DTO.UpdateInstrumentDTO;
 import org.stonebass.backend.model.InstrumentEntity;
 import org.stonebass.backend.model.InstrumentImage;
 import org.stonebass.backend.model.InstrumentType;
@@ -57,32 +58,42 @@ public class InstrumentService {
     }
 
     public List<InstrumentDTO> filter(List<String> typeStrings, String hasResonatorString) {
-        boolean hasResonatorFilter = hasResonatorString != null && Boolean.parseBoolean(hasResonatorString);
+        List<InstrumentType> types = null;
+        List<InstrumentEntity> instruments;
+        boolean hasResonatorFilterActive = hasResonatorString != null;
+        boolean hasResonatorValue = Boolean.parseBoolean(hasResonatorString);
 
-        List<InstrumentType> types = new ArrayList<>();
         if (typeStrings != null && !typeStrings.isEmpty()) {
-            for (String type : typeStrings) {
-                types.add(instrumentTypeRepository.findByName(type).orElseThrow(() -> new RuntimeException("Invalid type: " + type)));
-            }
+            types = typeStrings.stream()
+                    .map(type -> instrumentTypeRepository.findByName(type).orElseThrow(() -> new RuntimeException("Invalid type: " + type))).toList();
         }
 
-        if (!types.isEmpty() && hasResonatorString != null) {
-            return instrumentRepository.findByInstrumentTypeInAndInstrumentType_HasResonator(types, hasResonatorFilter)
-                    .stream()
-                    .map(this::convertImageDTO)
-                    .toList();
-        } else if (!types.isEmpty()) {
-            return instrumentRepository.findByInstrumentTypeIn(types)
-                    .stream()
-                    .map(this::convertImageDTO)
-                    .toList();
-        } else if (hasResonatorString != null) {
-            return instrumentRepository.findByInstrumentType_HasResonator(hasResonatorFilter)
-                    .stream()
-                    .map(this::convertImageDTO)
-                    .toList();
+        if (types != null && hasResonatorFilterActive) {
+            instruments = instrumentRepository.findByInstrumentTypeInAndInstrumentType_HasResonator(types, hasResonatorValue);
+        } else if (types != null) {
+            instruments = instrumentRepository.findByInstrumentTypeIn(types);
+        } else if (hasResonatorFilterActive) {
+            instruments = instrumentRepository.findByInstrumentType_HasResonator(hasResonatorValue);
         } else {
-            return getAll();
+            instruments = instrumentRepository.findAll();
         }
+
+        return instruments.stream().map(this::convertImageDTO).toList();
+    }
+
+
+    public InstrumentDTO edit(UpdateInstrumentDTO updateInstrumentDTO, List<MultipartFile> files) throws IOException {
+        InstrumentEntity instrument = instrumentRepository.findByTitle(updateInstrumentDTO.oldTitle()).orElseThrow(() -> new RuntimeException("Instrument " + updateInstrumentDTO.oldTitle() + " not found"));
+        InstrumentType type = instrumentTypeRepository.findByName(updateInstrumentDTO.instrumentType()).orElseThrow(() -> new RuntimeException("Invalid instrumentType: " + updateInstrumentDTO.instrumentType()));
+        instrument.setTitle(updateInstrumentDTO.newTitle());
+        instrument.setDescription(updateInstrumentDTO.description());
+        instrument.setYoutubeLink(updateInstrumentDTO.youtubeLink());
+        instrument.setInstrumentType(type);
+        List<InstrumentImage> originalImages = instrument.getImages();
+        originalImages.clear();
+        for (MultipartFile file : files) {
+            originalImages.add(new InstrumentImage(file.getBytes(), instrument));
+        }
+        return convertImageDTO(instrumentRepository.save(instrument));
     }
 }

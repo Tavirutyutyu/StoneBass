@@ -2,6 +2,7 @@ package org.stonebass.backend.controller;
 
 import org.stonebass.backend.DTO.InstrumentDTO;
 import org.stonebass.backend.DTO.NewInstrumentDTO;
+import org.stonebass.backend.DTO.UpdateInstrumentDTO;
 import org.stonebass.backend.service.InstrumentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -34,8 +35,6 @@ public class InstrumentController {
 
     @GetMapping("/filter")
     public List<InstrumentDTO> filter(@RequestParam (required = false) List<String> instrumentType, @RequestParam (required = false) String hasResonator) {
-        logger.info("filter instrumentType: " + instrumentType);
-        logger.info("filter hasResonator: " + hasResonator);
         return instrumentService.filter(instrumentType, hasResonator);
     }
 
@@ -45,6 +44,14 @@ public class InstrumentController {
             @RequestParam List<MultipartFile> files
     ) throws IOException {
         return instrumentService.upload(newInstrumentDTO, files);
+    }
+
+    @PatchMapping("/edit")
+    public InstrumentDTO edit(
+            @ModelAttribute UpdateInstrumentDTO updateInstrumentDTO,
+            @RequestParam List<MultipartFile> files
+    ) throws IOException {
+        return instrumentService.edit(updateInstrumentDTO, files);
     }
 
     @DeleteMapping("/delete/{id}")

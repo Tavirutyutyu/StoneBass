@@ -79,7 +79,7 @@ export default function GalleryPage({isAdminPage = false}) {
         <>
             <Filter onFilterChange={onFilterChange} selectedFilter={selectedFilters}/>
             <div className="galleryPage">
-                {isAdminPage && <button onClick={handleUpload}>Upload Instrument</button>}
+                {isAdminPage && <button className={"upload-button"} onClick={handleUpload}>Upload Instrument</button>}
                 <div className="item-list">
                     {posts.map((post, index) => (
                         <div className="item" key={index}>
