@@ -37,6 +37,12 @@
     cursor: pointer;
 }
 
+.upload-button {
+    background: #FFB400;
+    border: none;
+    padding: 5px;
+}
+
 @media (max-width: 2163px) {
     .item-list {
         grid-template-columns: repeat(4, 407px);

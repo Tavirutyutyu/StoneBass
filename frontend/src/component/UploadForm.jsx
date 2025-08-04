@@ -128,7 +128,7 @@ export default function UploadForm({
             <InstrumentSelectorDropdown instrumentType={instrumentType} handleInstrumentType={handleInstrumentType}/>
 
             <label htmlFor={"youtubeLink"}>Youtube link: </label>
-            <input type={"text"} id={"youtubeLink"} onChange={getYoutubeLink}/>
+            <input type={"text"} id={"youtubeLink"} value={youtubeLink} onChange={getYoutubeLink}/>
 
             <button type={"submit"}>Submit</button>
         </form>
