@@ -52,8 +52,8 @@ public class DataSeeder {
 
     private void seedAdminUser(AuthRepository authenticationRepository, PasswordEncoder passwordEncoder) {
         if (authenticationRepository.count() == 0) {
-            String adminUser = "admin";
-            String adminPasswordRaw = "password";
+            String adminUser = System.getenv("adminUsername");
+            String adminPasswordRaw = System.getenv("adminPassword");
             String adminPassword = passwordEncoder.encode(adminPasswordRaw);
             authenticationRepository.save(new AdminEntity(adminUser, adminPassword));
         }
