@@ -35,9 +35,13 @@ function base64ToFile(base64String, filename) {
 }
 
 
-async function smartFetch(url, method, body) {
+async function smartAuthFetch(url, method, body) {
+    const token = localStorage.getItem("token");
     return await fetch(url, {
         method,
+        headers: {
+            "Authorization": `Bearer ${token}`
+        },
         body
     });
 }
@@ -68,7 +72,7 @@ export default function UploadForm({
         } else {
             formData = prepareUploadData(title, description, files, instrumentType, youtubeLink);
         }
-        const response = await smartFetch(`/api/instrument/${isEditing ? "edit" : "upload"}`, isEditing ? "PATCH" : "POST", formData);
+        const response = await smartAuthFetch(`/api/instrument/${isEditing ? "edit" : "upload"}`, isEditing ? "PATCH" : "POST", formData);
         if (response.status === 200) {
             console.log("All good")
             navigate("/admin")
