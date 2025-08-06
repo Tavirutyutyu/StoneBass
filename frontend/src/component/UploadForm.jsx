@@ -68,9 +68,9 @@ export default function UploadForm({
         e.preventDefault();
         let formData;
         if (isEditing) {
-            formData = prepareEditData(title, oldTitle, description, files, existingImages, instrumentType, youtubeLink);
+            formData = prepareEditData(title, oldTitle, description, files, existingImages, instrumentType, getYoutubeLink(youtubeLink));
         } else {
-            formData = prepareUploadData(title, description, files, instrumentType, youtubeLink);
+            formData = prepareUploadData(title, description, files, instrumentType, getYoutubeLink(youtubeLink));
         }
         const response = await smartAuthFetch(`/api/instrument/${isEditing ? "edit" : "upload"}`, isEditing ? "PATCH" : "POST", formData);
         if (response.status === 200) {
@@ -85,12 +85,11 @@ export default function UploadForm({
         setInstrumentType(newType);
     }
 
-    function getYoutubeLink(e) {
-        const link = e.target.value;
+    function getYoutubeLink(link) {
         const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:watch\?v=|embed\/|v\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
         const match = link.match(regex);
         if (match) {
-            setYoutubeLink(match[1]);
+            return match[1];
         }
     }
 
@@ -132,7 +131,7 @@ export default function UploadForm({
             <InstrumentSelectorDropdown instrumentType={instrumentType} handleInstrumentType={handleInstrumentType}/>
 
             <label htmlFor={"youtubeLink"}>Youtube link: </label>
-            <input type={"text"} id={"youtubeLink"} value={youtubeLink} onChange={getYoutubeLink}/>
+            <input type={"text"} id={"youtubeLink"} value={youtubeLink} onChange={(e) => setYoutubeLink(e.target.value)}/>
 
             <button type={"submit"}>Submit</button>
         </form>
