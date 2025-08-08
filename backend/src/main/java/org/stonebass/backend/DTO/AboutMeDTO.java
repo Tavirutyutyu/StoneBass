@@ -5,6 +5,7 @@ import org.stonebass.backend.model.AboutMeEntity;
 import java.util.Base64;
 
 public record AboutMeDTO(
+        String title,
         String description,
         String profilePictureBase64,
         String playingOn1Description,
@@ -19,6 +20,7 @@ public record AboutMeDTO(
 
     public static AboutMeDTO fromEntity(AboutMeEntity entity) {
         return new AboutMeDTO(
+                entity.getTitle(),
                 entity.description,
                 getBase64FromImage(entity.profileImage),
                 entity.playingOn1Description,
