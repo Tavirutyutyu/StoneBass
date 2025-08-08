@@ -12,8 +12,8 @@ async function getAboutMeJson() {
 
 
 function getBase64ImageUrl(base64String) {
-    if (!base64String) return ""
     console.log(base64String)
+    if (!base64String) return ""
     return "data:image/jpeg;base64," + base64String.trim()
 }
 
@@ -22,6 +22,7 @@ export default function AboutMePage() {
 
     useEffect(() => {
         getAboutMeJson().then(data => {
+            console.log(data)
             if (data) setAboutMeData(data)
         })
     }, [])
@@ -31,7 +32,7 @@ export default function AboutMePage() {
     return (
         <div className="aboutMePage">
             <div className="aboutMe">
-                <img src={getBase64ImageUrl(aboutMeData.profilePicture)} alt="profile picture" />
+                <img src={getBase64ImageUrl(aboutMeData.profilePictureBase64)} alt="profile picture" />
                 <div className="aboutMeText">
                     <h1>{aboutMeData.title}</h1>
                     <p>{aboutMeData.description}</p>
@@ -41,7 +42,7 @@ export default function AboutMePage() {
                 {[1, 2, 3, 4].map(i => (
                     <div key={i}>
                         <p>{aboutMeData[`playingOn${i}Description`]}</p>
-                        <img src={getBase64ImageUrl(aboutMeData[`playingOn${i}`])} alt={`Playing On ${i}`} />
+                        <img src={getBase64ImageUrl(aboutMeData[`playingOn${i}Base64`])} alt={`Playing On ${i}`} />
                     </div>
                 ))}
             </div>

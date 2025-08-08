@@ -90,6 +90,8 @@ export default function UploadForm({
         const match = link.match(regex);
         if (match) {
             return match[1];
+        } else {
+            return link
         }
     }
 
