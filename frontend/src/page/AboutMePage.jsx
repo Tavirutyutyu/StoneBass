@@ -14,7 +14,7 @@ async function getAboutMeJson() {
 function getBase64ImageUrl(base64String) {
     console.log(base64String)
     if (!base64String) return ""
-    return "data:image/jpeg;base64," + base64String.trim()
+    return "data:image/png;base64," + base64String.trim()
 }
 
 export default function AboutMePage() {
