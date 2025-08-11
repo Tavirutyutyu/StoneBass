@@ -17,6 +17,22 @@ async function fetchInstruments(filters = {}) {
     }
 }
 
+async function deleteInstrument(instrumentId) {
+    const token = localStorage.getItem("token");
+    const response = await fetch(`/api/instrument/delete/${instrumentId}`,{
+        method: "DELETE",
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    });
+    if (response.status === 200) {
+        return true
+    } else {
+        console.error("Error deleting instrument");
+        return false
+    }
+}
+
 export default function GalleryPage({isAdminPage = false}) {
     const navigate = useNavigate();
     const location = useLocation();
@@ -73,6 +89,15 @@ export default function GalleryPage({isAdminPage = false}) {
         navigate("/upload");
     }
 
+    function handleDelete(e, post) {
+        e.preventDefault();
+        const isSuccessful = deleteInstrument(post.id)
+        if (isSuccessful) {
+            const updatedPosts = posts.filter(p => p.id !== post.id);
+            setPosts(updatedPosts);
+        }
+    }
+
     if (loading) return <div>Loading...</div>;
 
     return (
@@ -85,13 +110,22 @@ export default function GalleryPage({isAdminPage = false}) {
                         <div className="item" key={index}>
                             <PostComponent post={post} isListItem={true}/>
                             {isAdminPage && (
-                                <button
-                                    className="edit-button"
-                                    type="button"
-                                    onClick={(e) => handleEdit(e, post)}
-                                >
-                                    Edit
-                                </button>
+                                <div className={"editAndDelete"}>
+                                    <button
+                                        className="buttons"
+                                        type="button"
+                                        onClick={(e) => handleEdit(e, post)}
+                                    >
+                                        Edit
+                                    </button>
+                                    <button
+                                        className="buttons"
+                                        type="button"
+                                        onClick={(e) => handleDelete(e, post)}
+                                    >
+                                        Delete
+                                    </button>
+                                </div>
                             )}
                         </div>
                     ))}
