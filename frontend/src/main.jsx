@@ -11,6 +11,7 @@ import CategoryTilesPage from "./page/CategoryTilesPage.jsx";
 import Layout from "./component/Layout.jsx";
 import LoginPage from "./page/LoginPage.jsx";
 import ProtectedRoute from "./component/ProtectedRoute.jsx";
+import EditAboutMeForm from "./component/EditAboutMeForm.jsx";
 
 const router = createBrowserRouter([
     {
@@ -24,6 +25,8 @@ const router = createBrowserRouter([
             { path: '/resonator', element: <CategoryTilesPage hasResonator={true} /> },
             { path: '/traditional', element: <CategoryTilesPage hasResonator={false} /> },
             { path: '/login', element: <LoginPage /> },
+
+            { path: '/editAboutMe', element: <EditAboutMeForm />},
 
             {
                 element: <ProtectedRoute />,
