@@ -5,6 +5,7 @@
     align-items: center;
     padding: 2rem 0;
 }
+
 .item-list {
     display: grid;
     grid-template-columns: repeat(5, 407px);
@@ -27,7 +28,12 @@
     border: #AEA9A9 1px solid;
 }
 
-.edit-button {
+.editAndDelete {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.buttons {
     align-self: center;
     background: #FFB400;
     border-radius: 0;
@@ -36,6 +42,7 @@
     height: 1.5rem;
     cursor: pointer;
 }
+
 
 .upload-button {
     background: #FFB400;

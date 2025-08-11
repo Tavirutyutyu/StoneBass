@@ -31,7 +31,7 @@ function base64ToFile(base64String, filename) {
     for (let i = 0; i < byteString.length; i++) {
         byteArray[i] = byteString.charCodeAt(i);
     }
-    return new File([byteArray], filename, { type: 'image/png' });
+    return new File([byteArray], filename, {type: 'image/png'});
 }
 
 
@@ -90,6 +90,8 @@ export default function UploadForm({
         const match = link.match(regex);
         if (match) {
             return match[1];
+        } else {
+            return link
         }
     }
 
@@ -131,7 +133,8 @@ export default function UploadForm({
             <InstrumentSelectorDropdown instrumentType={instrumentType} handleInstrumentType={handleInstrumentType}/>
 
             <label htmlFor={"youtubeLink"}>Youtube link: </label>
-            <input type={"text"} id={"youtubeLink"} value={youtubeLink} onChange={(e) => setYoutubeLink(e.target.value)}/>
+            <input type={"text"} id={"youtubeLink"} value={youtubeLink}
+                   onChange={(e) => setYoutubeLink(e.target.value)}/>
 
             <button type={"submit"}>Submit</button>
         </form>
