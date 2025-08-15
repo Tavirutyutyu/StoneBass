@@ -72,7 +72,7 @@ export default function UploadForm({
         } else {
             formData = prepareUploadData(title, description, files, instrumentType, getYoutubeLink(youtubeLink));
         }
-        const response = await smartAuthFetch(`/api/instrument/${isEditing ? "edit" : "upload"}`, isEditing ? "PATCH" : "POST", formData);
+        const response = await smartAuthFetch(`/api/instrument/${isEditing ? "edit" : "upload"}`, isEditing ? "PUT" : "POST", formData);
         if (response.status === 200) {
             console.log("All good")
             navigate("/admin")

@@ -62,3 +62,11 @@
     object-fit: cover;
     margin-bottom: 0.5rem;
 }
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.submitButton {
+    align-self: center;
+}

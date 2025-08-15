@@ -10,6 +10,19 @@ async function getAboutMeJson() {
     return null
 }
 
+async function updateAboutMe(newAboutMe) {
+    const response = await fetch("/api/aboutMe/update", {
+        method: "PUT",
+        body: JSON.stringify(newAboutMe)
+    })
+    if (response.status === 200) {
+        console.log("AboutMe updated successfully")
+        return response.json()
+    } else {
+        console.error("Error updating AboutMe json")
+    }
+}
+
 export default function EditAboutMeForm() {
     const imagePreString = "data:image/png;base64,"
 
@@ -46,36 +59,78 @@ export default function EditAboutMeForm() {
 
     function handleSubmit(e) {
         e.preventDefault()
-
+        const newAboutMeJson = {
+            title,
+            description,
+            profilePicture: profilePic,
+            playingOn1Description,
+            playingOn1,
+            playingOn2Description,
+            playingOn2,
+            playingOn3Description,
+            playingOn3,
+            playingOn4Description,
+            playingOn4,
+        }
+        updateAboutMe(newAboutMeJson).then(response => {
+            if (response){
+                console.log("Updated AboutMe")
+            }
+        })
     }
 
     if (isLoading) return <p>Loading...</p>
 
     return (
-        <div className="editAboutMePage">
-            <div className="editAboutMe">
-                <img src={profilePic} alt="profile" />
-                <button type="button">Edit</button>
-                <div className="editAboutMeText">
-                    <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
-                    <textarea value={description} onChange={(e) => setDescription(e.target.value)} />
+        <div className={"wrapper"}>
+            <div className="editAboutMePage">
+                <div className="editAboutMe">
+                    <img src={profilePic} alt="profile"/>
+                    <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => {
+                            const file = e.target.files[0];
+                            if (file) {
+                                const reader = new FileReader();
+                                reader.onload = () => setProfilePic(reader.result);
+                                reader.readAsDataURL(file);
+                            }
+                        }}
+                    />
+
+                    <div className="editAboutMeText">
+                        <input type="text" value={title} onChange={(e) => setTitle(e.target.value)}/>
+                        <textarea value={description} onChange={(e) => setDescription(e.target.value)}/>
+                    </div>
+                </div>
+                <div className="editImagesAboutMe">
+                    {[
+                        [playingOn1Description, setPlayingOn1Description, playingOn1, setPlayingOn1],
+                        [playingOn2Description, setPlayingOn2Description, playingOn2, setPlayingOn2],
+                        [playingOn3Description, setPlayingOn3Description, playingOn3, setPlayingOn3],
+                        [playingOn4Description, setPlayingOn4Description, playingOn4, setPlayingOn4],
+                    ].map(([desc, setDesc, img, setImg], idx) => (
+                        <div key={idx}>
+                            <input type="text" value={desc} onChange={(e) => setDesc(e.target.value)}/>
+                            <img src={img} alt={`playingOn${idx + 1}`}/>
+                            <input
+                                type="file"
+                                accept="image/*"
+                                onChange={(e) => {
+                                    const file = e.target.files[0];
+                                    if (file) {
+                                        const reader = new FileReader();
+                                        reader.onload = () => setImg(reader.result);
+                                        reader.readAsDataURL(file);
+                                    }
+                                }}
+                            />
+                        </div>
+                    ))}
                 </div>
             </div>
-            <div className="editImagesAboutMe">
-                {[
-                    [playingOn1Description, setPlayingOn1Description, playingOn1],
-                    [playingOn2Description, setPlayingOn2Description, playingOn2],
-                    [playingOn3Description, setPlayingOn3Description, playingOn3],
-                    [playingOn4Description, setPlayingOn4Description, playingOn4]
-                ].map(([desc, setDesc, img], idx) => (
-                    <div key={idx}>
-                        <input type="text" value={desc} onChange={(e) => setDesc(e.target.value)} />
-                        <img src={img} alt={`playingOn${idx+1}`} />
-                        <button type="button">Edit</button>
-                    </div>
-                ))}
-            </div>
-            <button type={"button"} onClick={handleSubmit}>Submit</button>
+            <button className={"submitButton"} type={"button"} onClick={handleSubmit}>Submit</button>
         </div>
     )
 }
