@@ -1,9 +1,7 @@
 package org.stonebass.backend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.stonebass.backend.DTO.AboutMeDTO;
 import org.stonebass.backend.service.AboutMeService;
 
@@ -19,4 +17,6 @@ public class AboutMeController {
     public AboutMeDTO getAboutMe() {
         return aboutMeService.getAboutMe();
     }
+    @PutMapping("/update")
+    public AboutMeDTO updateAboutMe(@RequestBody AboutMeDTO aboutMeDTO) { return aboutMeService.updateAboutMe(aboutMeDTO);}
 }
