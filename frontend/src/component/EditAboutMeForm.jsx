@@ -13,6 +13,9 @@ async function getAboutMeJson() {
 async function updateAboutMe(newAboutMe) {
     const response = await fetch("/api/aboutMe/update", {
         method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
         body: JSON.stringify(newAboutMe)
     })
     if (response.status === 200) {
@@ -43,15 +46,15 @@ export default function EditAboutMeForm() {
         getAboutMeJson().then(response => {
             setTitle(response.title)
             setDescription(response.description)
-            setProfilePic(imagePreString + response.profilePictureBase64)
+            setProfilePic(response.profilePictureBase64)
             setPlayingOn1Description(response.playingOn1Description)
-            setPlayingOn1(imagePreString + response.playingOn1Base64)
+            setPlayingOn1(response.playingOn1Base64)
             setPlayingOn2Description(response.playingOn2Description)
-            setPlayingOn2(imagePreString + response.playingOn2Base64)
+            setPlayingOn2(response.playingOn2Base64)
             setPlayingOn3Description(response.playingOn3Description)
-            setPlayingOn3(imagePreString + response.playingOn3Base64)
+            setPlayingOn3(response.playingOn3Base64)
             setPlayingOn4Description(response.playingOn4Description)
-            setPlayingOn4(imagePreString + response.playingOn4Base64)
+            setPlayingOn4(response.playingOn4Base64)
 
             setIsLoading(false)
         })
@@ -62,18 +65,18 @@ export default function EditAboutMeForm() {
         const newAboutMeJson = {
             title,
             description,
-            profilePicture: profilePic,
+            profilePictureBase64: profilePic,
             playingOn1Description,
-            playingOn1,
+            playingOn1Base64: playingOn1,
             playingOn2Description,
-            playingOn2,
+            playingOn2Base64: playingOn2,
             playingOn3Description,
-            playingOn3,
+            playingOn3Base64: playingOn3,
             playingOn4Description,
-            playingOn4,
+            playingOn4Base64: playingOn4,
         }
         updateAboutMe(newAboutMeJson).then(response => {
-            if (response){
+            if (response) {
                 console.log("Updated AboutMe")
             }
         })
@@ -85,7 +88,7 @@ export default function EditAboutMeForm() {
         <div className={"wrapper"}>
             <div className="editAboutMePage">
                 <div className="editAboutMe">
-                    <img src={profilePic} alt="profile"/>
+                    <img src={imagePreString + profilePic} alt="profile"/>
                     <input
                         type="file"
                         accept="image/*"
@@ -93,7 +96,10 @@ export default function EditAboutMeForm() {
                             const file = e.target.files[0];
                             if (file) {
                                 const reader = new FileReader();
-                                reader.onload = () => setProfilePic(reader.result);
+                                reader.onload = () => {
+                                    const stripped = reader.result.split(',')[1];
+                                    setProfilePic(stripped)
+                                };
                                 reader.readAsDataURL(file);
                             }
                         }}
@@ -113,7 +119,7 @@ export default function EditAboutMeForm() {
                     ].map(([desc, setDesc, img, setImg], idx) => (
                         <div key={idx}>
                             <input type="text" value={desc} onChange={(e) => setDesc(e.target.value)}/>
-                            <img src={img} alt={`playingOn${idx + 1}`}/>
+                            <img src={imagePreString + img} alt={`playingOn${idx + 1}`}/>
                             <input
                                 type="file"
                                 accept="image/*"
@@ -121,7 +127,10 @@ export default function EditAboutMeForm() {
                                     const file = e.target.files[0];
                                     if (file) {
                                         const reader = new FileReader();
-                                        reader.onload = () => setImg(reader.result);
+                                        reader.onload = () => {
+                                            const stripped = reader.result.split(',')[1];
+                                            setImg(stripped);
+                                        };
                                         reader.readAsDataURL(file);
                                     }
                                 }}
