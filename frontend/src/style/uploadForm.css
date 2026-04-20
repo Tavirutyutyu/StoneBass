@@ -1,0 +1,266 @@
+/* UploadForm.css */
+
+form {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 40px;
+    background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Labels */
+form label {
+    display: block;
+    margin-top: 24px;
+    margin-bottom: 10px;
+    font-weight: 600;
+    font-size: 1rem;
+    color: #333;
+    letter-spacing: 0.5px;
+}
+
+form label:first-child {
+    margin-top: 0;
+}
+
+/* Input fields */
+form input[type="text"],
+form input[type="file"] {
+    width: 100%;
+    padding: 12px 14px;
+    margin-bottom: 20px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    background-color: #fff;
+}
+
+form input[type="text"]:focus,
+form input[type="file"]:focus {
+    outline: none;
+    border-color: #4a90e2;
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+}
+
+form input[type="text"]::placeholder {
+    color: #999;
+}
+
+/* File input styling */
+form input[type="file"]::file-selector-button {
+    padding: 10px 20px;
+    background: #fbba00;
+    color: black;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    margin-right: 12px;
+}
+
+form input[type="file"]::file-selector-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgb(251, 186, 0);
+}
+
+/* Existing images section */
+form > div > div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+form > div > div {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease;
+}
+
+form > div > div:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+form > div > div img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    display: block;
+    max-width: 100%;
+}
+
+/* Remove button styling */
+form > div > div button {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    padding: 6px 12px;
+    background: rgba(255, 59, 48, 0.9);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+form > div > div:hover button {
+    opacity: 1;
+}
+
+form > div > div button:hover {
+    background: rgba(255, 59, 48, 1);
+    transform: scale(1.05);
+}
+
+/* Submit button */
+form button[type="submit"] {
+    width: 100%;
+    padding: 14px 24px;
+    margin-top: 32px;
+    background: #fbba00;
+    color: black;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 15px rgba(251, 186, 0, 0.3);
+}
+
+form button[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgb(255, 179, 0);
+}
+
+form button[type="submit"]:active {
+    transform: translateY(0);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    form {
+        margin: 20px;
+        padding: 25px;
+    }
+
+    form label {
+        font-size: 0.95rem;
+        margin-top: 18px;
+    }
+
+    form input[type="text"],
+    form input[type="file"] {
+        padding: 10px 12px;
+        font-size: 0.95rem;
+    }
+
+    form > div > div img {
+        width: 100px;
+        height: 100px;
+    }
+
+    form button[type="submit"] {
+        padding: 12px 20px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    form {
+        margin: 15px;
+        padding: 20px;
+    }
+
+    form label {
+        font-size: 0.9rem;
+        margin-top: 15px;
+    }
+
+    form input[type="text"],
+    form input[type="file"] {
+        padding: 8px 10px;
+        font-size: 0.9rem;
+    }
+
+    form > div > div img {
+        width: 80px;
+        height: 80px;
+    }
+
+    form button[type="submit"] {
+        padding: 10px 16px;
+        font-size: 0.95rem;
+    }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    form {
+        margin: 20px;
+        padding: 25px;
+    }
+
+    label {
+        font-size: 0.95rem;
+        margin-top: 18px;
+    }
+
+    input[type="text"],
+    input[type="file"] {
+        padding: 10px 12px;
+        font-size: 0.95rem;
+    }
+
+    div > div > div img {
+        width: 100px;
+        height: 100px;
+    }
+
+    button[type="submit"] {
+        padding: 12px 20px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    form {
+        margin: 15px;
+        padding: 20px;
+    }
+
+    label {
+        font-size: 0.9rem;
+        margin-top: 15px;
+    }
+
+    input[type="text"],
+    input[type="file"] {
+        padding: 8px 10px;
+        font-size: 0.9rem;
+    }
+
+    div > div > div img {
+        width: 80px;
+        height: 80px;
+    }
+
+    button[type="submit"] {
+        padding: 10px 16px;
+        font-size: 0.95rem;
+    }
+}

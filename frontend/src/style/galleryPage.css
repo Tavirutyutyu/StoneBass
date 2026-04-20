@@ -35,7 +35,7 @@
 
 .buttons {
     align-self: center;
-    background: #FFB400;
+    background: #fbba00;
     border-radius: 0;
     border: none;
     width: 4rem;
@@ -45,7 +45,7 @@
 
 
 .upload-button {
-    background: #FFB400;
+    background: #fbba00;
     border: none;
     padding: 5px;
 }

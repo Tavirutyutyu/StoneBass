@@ -13,7 +13,7 @@
     align-items: flex-start;
     width: 50%;
     padding-right: 2rem;
-    border-right: 4px solid #FFB400;
+    border-right: 4px solid #fbba00;
 }
 
 .aboutMe img {
@@ -29,7 +29,7 @@
 
 .separator {
     width: 4px;
-    background-color: #FFB400;
+    background-color: #fbba00;
     height: 100%;
     margin: 0 2rem;
 }

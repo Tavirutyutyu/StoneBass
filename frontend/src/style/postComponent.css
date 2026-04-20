@@ -100,7 +100,7 @@
 
 .thumbnail.active {
     opacity: 1;
-    border-color: var(--main-yellow, #FFB400);
+    border-color: var(--main-yellow, #fbba00);
 }
 
 #video {

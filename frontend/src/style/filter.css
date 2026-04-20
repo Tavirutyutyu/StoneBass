@@ -3,7 +3,7 @@
     flex-direction: column;
     align-items: flex-start;
     font-family: 'Open Sans', sans-serif;
-    background-color: #FFB400;
+    background-color: #fbba00;
     width: 100%;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -50,7 +50,7 @@
     list-style: none;
     padding: 0;
     margin: 0.5rem 0 0 0;
-    background: #FFB400;
+    background: #fbba00;
     overflow: hidden;
 }
 

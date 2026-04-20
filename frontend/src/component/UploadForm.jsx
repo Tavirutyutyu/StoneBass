@@ -1,6 +1,7 @@
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import InstrumentSelectorDropdown from "./InstrumentSelectorDropdown.jsx";
+import "../style/uploadForm.css";
 
 function prepareUploadData(title, description, files, instrumentType, youtubeLink) {
     const formData = new FormData();
